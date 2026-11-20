@@ -41,3 +41,10 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
 - Los valores son ejemplos de forma, no cifras reales.
 - `lado`: "ofensiva", "defensiva" o "balon". En el balón, `nfl_id`, `nombre`, `dorsal`, `rol`, `o` y `dir` son `null`.
 - `receptor_objetivo` es `null` si la jugada no tiene `pass_arrived`.
+
+## Flujo de trabajo (dos Kiros)
+- Ramas: `backend` toca solo `backend/` y `frontend` toca solo `dashboard/`. Nadie programa directo en `main`.
+- `.kiro/` (specs, steering y este contrato) se cambia solo en `main`. Cada rama lo trae con `git merge main`. Si un lado necesita cambiar el contrato, avisa al otro antes.
+- Mientras el backend no responda, el frontend usa los ejemplos de este contrato como mocks marcados como tales. Ningún mock llega a la entrega.
+- Integración: merge de la rama a `main` solo si funciona (`GET /health` para backend, `vite build` para frontend). Después, el otro lado hace `git merge main`.
+- Antes de empezar: `git pull`. Commits pequeños y con mensaje claro.
