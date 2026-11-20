@@ -21,12 +21,12 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
     "yardas_promedio": 0.0, "resultado_pase": {"C": 0, "I": 0, "S": 0, "R": 0, "IN": 0}}],
   "bolsillo": { "n_con_pase": 0, "n_sin_pase": 0, "n_con_respaldo_autoevent": 0,
     "por_grupo": [{"play_action": true, "presion": false, "n": 0, "tiempo_promedio_s": 0.0, "tiempo_mediana_s": 0.0, "success_rate": 0.0}] },
-  "separacion": { "n": 0, "por_resultado": [{"resultado_pase": "C", "n": 0, "separacion_promedio_yd": 0.0,
+  "separacion": { "n": 0, "n_sin_receptor_identificado": 0, "momento": "pass_forward", "por_resultado": [{"resultado_pase": "C", "n": 0, "separacion_promedio_yd": 0.0,
     "separacion_mediana_yd": 0.0, "vel_receptor_promedio": 0.0, "vel_defensor_promedio": 0.0}] } }
 ```
 - `tasa` y `success_rate` van de 0 a 1. Cada métrica viaja con su `n`.
 - `presion` = algún defensor con `pff_hit`, `pff_hurry` o `pff_sack` igual a 1 en la jugada.
-- `n_sin_pase` = jugadas sin `pass_forward` ni respaldo (sacks, scrambles).
+- `n_sin_pase` = jugadas sin `pass_forward` ni respaldo (sacks, scrambles). `success_rate` usa `prePenaltyPlayResult` y cuenta IN como fracaso.
 
 ## GET /api/jugada/{game_id}/{play_id}
 ```json
@@ -40,7 +40,7 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
 ```
 - Los valores son ejemplos de forma, no cifras reales.
 - `lado`: "ofensiva", "defensiva" o "balon". En el balón, `nfl_id`, `nombre`, `dorsal`, `rol`, `o` y `dir` son `null`.
-- `receptor_objetivo` es `null` si la jugada no tiene `pass_arrived`.
+- `receptor_objetivo`: receptor nombrado en `playDescription`; `separacion_yd` se mide en el cuadro de `pass_forward`. Es `null` si no hay pase o no se identifica el receptor.
 
 ## Flujo de trabajo (dos Kiros)
 - Ramas: `backend` toca solo `backend/` y `frontend` toca solo `dashboard/`. Nadie programa directo en `main`.

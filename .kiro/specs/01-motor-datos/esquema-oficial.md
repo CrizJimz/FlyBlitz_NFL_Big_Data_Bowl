@@ -31,7 +31,7 @@ Nota de memoria: el tracking se lee archivo por archivo (o con `usecols`); nunca
 | gameId / playId | int64 | 0 | id_partido / id_jugada | playId no es único entre partidos |
 | playDescription | object | 0 | descripcion | Texto de la jugada |
 | quarter | int64 | 0 | cuarto | Cuarto (1-5; 5 = tiempo extra, 98 jugadas) |
-| down | int64 | 0 | oportunidad | Down 1-4. Hay 35 jugadas con down=0 y yardsToGo=0: **sin confirmar** (posible conversión de 2 puntos; verificar en playDescription) |
+| down | int64 | 0 | oportunidad | Down 1-4. Las 35 jugadas con down=0 y yardsToGo=0 son conversiones de 2 puntos (confirmado: las 35 dicen "TWO-POINT") |
 | yardsToGo | int64 | 0 | yardas_por_avanzar | Distancia al primer down |
 | possessionTeam | object | 0 | ofensiva | Equipo con el balón |
 | defensiveTeam | object | 0 | defensiva | Equipo defensivo |
@@ -50,7 +50,7 @@ Nota de memoria: el tracking se lee archivo por archivo (o con `usecols`); nunca
 | personnelO | object | 1 | personal_ofensivo | Personal ofensivo (30 valores) |
 | defendersInBox | float64 | 7 | defensores_en_caja | Defensores cerca de la línea de golpeo |
 | personnelD | object | 1 | personal_defensivo | Personal defensivo (29 valores) |
-| dropBackType | object | 528 | tipo_dropback | TRADITIONAL, SCRAMBLE, DESIGNED_ROLLOUT_R/L, SCRAMBLE_ROLLOUT_R/L, DESIGNED_RUN, UNKNOWN. Nulos **sin confirmar** (cruzar con passResult) |
+| dropBackType | object | 528 | tipo_dropback | TRADITIONAL, SCRAMBLE, DESIGNED_ROLLOUT_R/L, SCRAMBLE_ROLLOUT_R/L, DESIGNED_RUN, UNKNOWN. Nulos son dato faltante: aparecen en los 5 valores de passResult (I 304, C 156, R 31, S 23, IN 14) |
 | pff_playAction | int64 | 0 | play_action | 1 = hubo finta de carrera (2,038 jugadas) |
 | pff_passCoverage | object | 0 | cobertura | Cover-3 2,665; Cover-1 2,011; Cover-2 1,085; Quarters 1,033; Cover-6 805; Red Zone 376; Cover-0 270; 2-Man 200; Bracket 47; Prevent 32; Goal Line 25; Miscellaneous 8 |
 | pff_passCoverageType | object | 0 | tipo_cobertura | Zone 5,588; Man 2,481; Other 488 |
@@ -61,7 +61,7 @@ Nota de memoria: el tracking se lee archivo por archivo (o con `usecols`); nunca
 | nflId | int64 | 0 | id_jugador | Identificador único del jugador |
 | height | object | 0 | estatura | Texto pies-pulgadas, ej. "6-4" |
 | weight | int64 | 0 | peso | Peso (libras) |
-| birthDate | object | 232 | fecha_nacimiento | YYYY-MM-DD. Nulos son dato faltante |
+| birthDate | object | 232 | fecha_nacimiento | YYYY-MM-DD, salvo 14 valores en mm/dd/yyyy. Nulos son dato faltante |
 | collegeName | object | 224 | universidad | Universidad. Nulos son dato faltante |
 | officialPosition | object | 0 | posicion_oficial | 19 posiciones: WR, CB, DE, OLB, RB, T, TE, DT, G, ILB, FS, SS, QB, C, NT, MLB, FB, LB, DB |
 | displayName | object | 0 | nombre | Nombre del jugador |
@@ -90,7 +90,7 @@ Nota de memoria: el tracking se lee archivo por archivo (o con `usecols`); nunca
 | team | object | 0 | equipo | Equipo o "football" (33 valores) |
 | playDirection | object | 0 | direccion | **Presente**: left 4,287,706; right 4,026,472 filas |
 | x / y | float64 | 0 | x / y | Yardas. Observado x de -3.55 a 121.15 y y de -4.53 a 57.72 (fuera de 0-120 y 0-53.3: jugadores fuera del campo) |
-| s / a / dis | float64 | 0 | velocidad / aceleracion / distancia | yd/s (máx. 29.34), yd/s² (máx. 50.69), yd desde el cuadro previo |
+| s / a / dis | float64 | 0 | velocidad / aceleracion / distancia | yd/s, yd/s², yd desde el cuadro previo. Los máximos (29.34 yd/s, 50.69 yd/s²) son del balón; el máximo de un jugador es 11.18 yd/s |
 | o / dir | float64 | 361,486 | orientacion / direccion_mov | Grados 0-360. Nulo en filas del balón |
 | event | object | 7,673,352 | evento | Etiqueta del cuadro. Nulo en cuadros sin evento |
 
