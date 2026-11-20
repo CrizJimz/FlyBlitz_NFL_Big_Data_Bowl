@@ -38,7 +38,7 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
   - `useReproductor.ts`, `LineaTiempo.tsx` (primer cuadro por evento, "Sin snap registrado"), separación "al lanzar el pase" o "Receptor no identificado", línea punteada al defensor más cercano en el cuadro del pase y nota de 0.5 s.
   - _Requisitos: 8.7-8.12_
 
-- [ ] 7. Cierre de fase 1
+- [x] 7. Cierre de fase 1
   - `npm run build`; cero resultados de `'/api` y `localhost` en `src` y de "mock" en `dist`.
   - Recorrido con `npm run dev:mock`: 5 secciones, carga, 503 con reintento, error, sin snap, receptor `null`, celdas omitidas y lista vacía.
   - Avisar al usuario antes de hacer merge a `main`.
@@ -46,19 +46,19 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
 
 ## Fase 2
 
-- [ ] 8. Pantalla Coberturas
+- [x] 8. Pantalla Coberturas
   - Selector de down y distancia, tarjetas por `tipo_cobertura`, `BarChart` apilado de `resultado_pase`, agregación ponderada por n o desglose.
   - _Requisitos: 9.1-9.4_
 
-- [ ] 9. Pantalla Bolsillo
+- [x] 9. Pantalla Bolsillo
   - Barra de 100% con los tres grupos, `n_con_respaldo_autoevent` aparte, aviso si la suma no da `n_jugadas`, matriz de 2 × 2 con "Sin jugadas" en las celdas omitidas.
   - _Requisitos: 10.1-10.5_
 
-- [ ] 10. Pantalla Separación
+- [x] 10. Pantalla Separación
   - Título con `etiquetaMomento(momento)`, tarjetas por resultado, `BarChart`, nota con `n_sin_receptor_identificado`.
   - _Requisitos: 11.1-11.4_
 
-- [ ] 11. Integración con la API real
+- [x] 11. Integración con la API real
   - Con `npm run dev`: `n_jugadas` sin filtros = 8,557 y bolsillo = 7,541 + 992 + 24; jugada 2021091200-4367 con "Sin snap registrado"; backend en frío con reintento tras el 503; filtro inexistente con 422; orientación `o` y `dir` correcta a ojo.
   - Quitar "Próximamente"; `npm run build`; merge a `main` solo si pasa y el usuario lo aprueba.
   - _Requisitos: 12.1, 12.2_
