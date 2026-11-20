@@ -11,6 +11,9 @@ import { Cargando, ErrorPanel } from './componentes/Estado'
 import { MarcoTablet } from './componentes/MarcoTablet'
 import { PanelFiltros } from './componentes/PanelFiltros'
 import { datosVisibles, VistaAnalisis } from './componentes/VistaAnalisis'
+import { PantallaBolsillo } from './pantallas/Bolsillo'
+import { PantallaCoberturas } from './pantallas/Coberturas'
+import { PantallaSeparacion } from './pantallas/Separacion'
 import { PantallaSuccessRate } from './pantallas/SuccessRate'
 import { PantallaVisor2D } from './pantallas/Visor2D'
 import { SECCIONES, seccionDesdeHash, type Seccion } from './secciones'
@@ -42,6 +45,9 @@ function ContenidoSeccion({ seccion, opciones, analisis, filtros }: {
   const def = SECCIONES.find((s) => s.id === seccion)!
   // El visor no depende de api/analisis: funciona aunque esté en 503 (precálculo).
   if (seccion === 'visor') return <PantallaVisor2D filtros={filtros} />
+  if (seccion === 'coberturas') return <VistaAnalisis resultado={analisis}>{(d) => <PantallaCoberturas datos={d} />}</VistaAnalisis>
+  if (seccion === 'bolsillo') return <VistaAnalisis resultado={analisis}>{(d) => <PantallaBolsillo datos={d} />}</VistaAnalisis>
+  if (seccion === 'separacion') return <VistaAnalisis resultado={analisis}>{(d) => <PantallaSeparacion datos={d} />}</VistaAnalisis>
   if (seccion === 'success-rate') {
     return (
       <VistaAnalisis resultado={analisis}>

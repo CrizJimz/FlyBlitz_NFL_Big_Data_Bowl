@@ -28,7 +28,9 @@ function enteroPositivo(texto: string): number | null {
 
 /** Columna izquierda: búsqueda manual y lista de api/jugadas con los filtros globales. */
 function ListaJugadas({ filtros, seleccion, onElegir }: { filtros: Filtros; seleccion: Seleccion | null; onElegir: (s: Seleccion) => void }) {
-  const lista = usePeticion(() => getJugadas(filtros), [JSON.stringify(filtros)])
+  // Sin equipo ni semana, api/jugadas devuelve las 8,557 jugadas (~1.7 MB): se pide solo con al menos uno.
+  const acotado = filtros.ofensiva !== null || filtros.defensiva !== null || filtros.semana !== null
+  const lista = usePeticion<JugadaListada[]>(() => (acotado ? getJugadas(filtros) : Promise.resolve([])), [JSON.stringify(filtros)])
   const [gameId, setGameId] = useState('')
   const [playId, setPlayId] = useState('')
   const [errorIds, setErrorIds] = useState<string | null>(null)
@@ -69,7 +71,8 @@ function ListaJugadas({ filtros, seleccion, onElegir }: { filtros: Filtros; sele
             ? <p className="px-1 text-sm font-semibold text-alerta">{lista.estado.error.detalle}</p>
             : <ErrorPanel titulo="No se pudo cargar la lista" error={lista.estado.error} onReintentar={lista.reintentar} />
         )}
-        {lista.estado.tipo === 'listo' && filas.length === 0 && <div className="px-1"><SinDatos /></div>}
+        {!acotado && <p className="px-1 text-sm font-semibold text-acento">Elige un equipo (ofensiva o defensiva) o una semana en los filtros para ver la lista.</p>}
+        {acotado && lista.estado.tipo === 'listo' && filas.length === 0 && <div className="px-1"><SinDatos /></div>}
         {filas.length > MAX_LISTA && (
           <p className="px-1 text-xs text-alerta">Mostrando {MAX_LISTA} de {entero(filas.length)}; usa los filtros para acotar.</p>
         )}
