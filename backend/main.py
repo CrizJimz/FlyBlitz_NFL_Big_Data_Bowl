@@ -17,9 +17,11 @@ cargar_env()
 
 from contextlib import asynccontextmanager  # noqa: E402
 
-from fastapi import FastAPI  # noqa: E402
+from fastapi import FastAPI, HTTPException  # noqa: E402
+from fastapi.staticfiles import StaticFiles  # noqa: E402
 
 from .api import router  # noqa: E402
+from .motor import config  # noqa: E402
 from .motor.precalculo import iniciar_motor_en_segundo_plano  # noqa: E402
 
 
@@ -42,4 +44,16 @@ app.include_router(router)
 def health() -> dict:
     """Responde siempre ok, incluso si el motor está en error."""
     return {"status": "ok"}
+
+
+@app.api_route("/api/{resto:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+def api_no_encontrada(resto: str):
+    """404 en JSON para rutas /api inexistentes (evita que las capture el estático)."""
+    raise HTTPException(status_code=404, detail="No encontrado")
+
+
+# Sirve el build del dashboard en la misma URL, solo si existe.
+_DIST = config.RAIZ / "dashboard" / "dist"
+if _DIST.is_dir():
+    app.mount("/", StaticFiles(directory=_DIST, html=True), name="dashboard")
 

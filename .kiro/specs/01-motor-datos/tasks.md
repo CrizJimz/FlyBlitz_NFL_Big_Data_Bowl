@@ -226,8 +226,8 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
   - Ejecutar las pruebas (`pytest backend/tests`) y confirmar que `GET /api/analisis` y `GET /api/jugada/{game_id}/{play_id}` responden con datos reales.
   - Preguntar al usuario si hay dudas. No ejecutar git sin confirmación explícita; si el usuario confirma, hacer el merge de `backend` a `main` y avisar al compañero de frontend.
 
-- [ ] 12. Servir `dashboard/dist` y 404 JSON para `/api`
-  - [ ] 12.1 Montar `StaticFiles` en `main.py`
+- [x] 12. Servir `dashboard/dist` y 404 JSON para `/api`
+  - [x] 12.1 Montar `StaticFiles` en `main.py`
     - Después de `/health` y del router `/api`, montar `StaticFiles(directory="dashboard/dist", html=True)` en `/` solo si `dashboard/dist` existe (ruta relativa a la raíz). Registrar antes un manejador de 404 en JSON para rutas `/api/...` inexistentes, de modo que el montaje estático no las capture. No tocar `dashboard/`.
     - _Requirements: 7.9, 11.1, 11.2_
 
@@ -240,7 +240,7 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - Ejecutar el fixture de `conftest.py` con `pytest -s` y anotar duración de la carga base, por partido y total del precálculo. La referencia de trabajo es menos de 60 s; si se supera, reportar al usuario antes de evaluar `ThreadPoolExecutor`.
     - _Requirements: 1.2, 10.1_
 
-  - [ ] 13.2 Documentar hallazgos y cifras en `README.md`
+  - [x] 13.2 Documentar hallazgos y cifras en `README.md`
     - Documentar la identidad `7,541 + 992 + 24 = 8,557` (`sin_pase` = 542 S, 447 R y 3 C/I), las 35 jugadas de `down 0`, la separación 7,240 medidas y 325 sin receptor, y el tiempo de arranque medido. Cada cifra cita la función del repo que la reproduce y su `n`. Sin credenciales.
     - _Requirements: 10.1, 10.4, 10.5_
 
