@@ -69,7 +69,7 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - `/health` responde `{"status": "ok"}` también con `estado = error` (ruta inexistente); `/api/filtros` trae las siete llaves y valores iguales a `unique()` de los CSV; todas las rutas de datos cuelgan de `/api`.
     - _Requirements: 1.7, 7.1, 7.2, 7.9, 11.2_
 
-- [-] 4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend
+- [x] 4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend
   - Ejecutar las pruebas (`pytest backend/tests`) y confirmar que `GET /health` y `GET /api/filtros` responden con datos reales.
   - Preguntar al usuario si hay dudas. No ejecutar git (merge, push) sin confirmación explícita; si el usuario confirma, hacer el merge de `backend` a `main` y avisar al compañero de frontend.
 
@@ -198,6 +198,10 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
   - [ ]* 9.7 Escribir pruebas de ejemplo de errores 422
     - 422 en `down=0`, `down=abc`, `semana=99`, `distancia=xyz`, equipo inexistente; 200 con ceros cuando ningún dato cumple los filtros.
     - _Requirements: 7.7, 7.8_
+
+  - [ ] 9.8 Implementar `GET /api/jugadas` (agregado al contrato en el commit 9aaf34a)
+    - Reusar `filtrar_jugadas` y la validación 422 de `/api/analisis`. Devuelve la lista `[{game_id, play_id, descripcion, down, yardas_por_avanzar, resultado_pase}]` ordenada por `game_id` y `play_id`; `[]` si no hay coincidencias. Responde con las tablas base, sin esperar el precálculo. Modelo Pydantic con las llaves exactas y prueba de ejemplo con `TestClient` (8,557 jugadas sin filtros; un filtro cuadra con pandas directo).
+    - _Requirements: 7.4, 7.7, 7.8, 7.9_
 
 - [ ] 10. `GET /api/jugada/{game_id}/{play_id}`
   - [ ] 10.1 Implementar `jugada.py` con `detalle_jugada`
