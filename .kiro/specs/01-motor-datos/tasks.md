@@ -235,8 +235,8 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - Con `dist` ausente la app arranca sin montar nada; una ruta `/api/inexistente` responde 404 JSON; `/health` y las rutas `/api` no cambian con el montaje.
     - _Requirements: 7.9, 11.2_
 
-- [ ] 13. Medición del arranque y documentación en `README.md`
-  - [ ] 13.1 Medir el tiempo de arranque con datos reales
+- [x] 13. Medición del arranque y documentación en `README.md`
+  - [x] 13.1 Medir el tiempo de arranque con datos reales
     - Ejecutar el fixture de `conftest.py` con `pytest -s` y anotar duración de la carga base, por partido y total del precálculo. La referencia de trabajo es menos de 60 s; si se supera, reportar al usuario antes de evaluar `ThreadPoolExecutor`.
     - _Requirements: 1.2, 10.1_
 

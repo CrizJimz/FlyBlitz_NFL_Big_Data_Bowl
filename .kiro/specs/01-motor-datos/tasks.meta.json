@@ -417,6 +417,21 @@
         "executionId": "b1920ea9-7679-40b4-b6e6-4dd721052e56",
         "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
         "timestamp": 1795200912619
+      },
+      {
+        "executionId": "75ae50a9-7f3e-414e-be6b-f229351f2fc6",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795201195600
+      },
+      {
+        "executionId": "229b48c9-750e-4bca-9dc7-c227e43f7b0e",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795201725937
+      },
+      {
+        "executionId": "229b48c9-750e-4bca-9dc7-c227e43f7b0e",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795201956999
       }
     ],
     "12. Servir `dashboard/dist` y 404 JSON para `/api`": [
@@ -424,6 +439,25 @@
         "executionId": "b1920ea9-7679-40b4-b6e6-4dd721052e56",
         "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
         "timestamp": 1795200912517
+      }
+    ],
+    "13.1 Medir el tiempo de arranque con datos reales": [
+      {
+        "executionId": "75ae50a9-7f3e-414e-be6b-f229351f2fc6",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795201194767
+      },
+      {
+        "executionId": "e56652d5-df5d-45d7-ab24-bb40ad906930",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795201654734
+      }
+    ],
+    "13. Medición del arranque y documentación en `README.md`": [
+      {
+        "executionId": "229b48c9-750e-4bca-9dc7-c227e43f7b0e",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795201957049
       }
     ]
   }
