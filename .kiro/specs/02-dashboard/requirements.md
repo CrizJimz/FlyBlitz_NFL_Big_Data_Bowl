@@ -95,8 +95,8 @@ Cada requisito indica su fase.
 1. THE Capa_API SHALL definir tipos de TypeScript que copien exactamente las llaves y la estructura de `contrato-api.md` para `api/filtros`, `api/analisis` y `api/jugada`.
 2. THE Capa_API SHALL concentrar todas las llamadas a la API en un solo módulo, sin `fetch` sueltos en las pantallas.
 3. THE Capa_API SHALL guardar los Mocks en archivos aparte, con "mock" en el nombre y un comentario que diga que son datos de ejemplo de forma.
-4. THE Capa_API SHALL usar los Mocks solo cuando una variable de entorno de desarrollo de Vite lo pida de forma explícita.
-5. WHEN el Dashboard se construye para entrega (`vite build` sin esa variable), THE Capa_API SHALL NOT incluir ni usar los Mocks.
+4. THE Capa_API SHALL usar los Mocks solo cuando el servidor de desarrollo se inicie de forma explícita en modo mock (`npm run dev:mock`).
+5. WHEN el Dashboard se construye para entrega (`npm run build`, modo production), THE Capa_API SHALL NOT incluir ni usar los Mocks.
 6. WHILE el Dashboard esté en Modo_Mock, THE Dashboard SHALL mostrar en la barra superior y en cada pantalla afectada un indicador naranja visible: "DATOS DE EJEMPLO".
 7. THE Mocks SHALL respetar las relaciones del contrato: `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`, `tasa` y `success_rate` entre 0 y 1, y `exitosas ≤ n`.
 8. IF la API no responde o responde con un error distinto de 404 o 422, THEN THE Dashboard SHALL mostrar un mensaje de error con opción de reintentar, sin pasar en silencio al Mock.
@@ -181,7 +181,7 @@ Cada requisito indica su fase.
 
 #### Criterios de aceptación
 1. THE Dashboard SHALL integrarse a `main` solo cuando `npm run build` termine sin errores.
-2. WHEN el backend responda los tres endpoints, THE Dashboard SHALL funcionar sin Mocks y sin cambios en las pantallas, solo cambiando la variable de entorno.
+2. WHEN el backend responda los tres endpoints, THE Dashboard SHALL funcionar sin Mocks y sin cambios en las pantallas, solo iniciando con `npm run dev` en lugar de `npm run dev:mock`.
 3. THE Dashboard SHALL mostrar su hallazgo principal (Success Rate) aunque fallen otras secciones.
 
 ## Preguntas abiertas para el backend
