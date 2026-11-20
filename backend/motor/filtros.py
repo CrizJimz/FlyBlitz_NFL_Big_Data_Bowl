@@ -56,3 +56,31 @@ def construir_catalogo(tablas: TablasBase) -> dict:
         "coberturas": _unicos_texto(plays["pff_passCoverage"]),
         "formaciones": _unicos_texto(plays["offenseFormation"]),
     }
+
+
+def filtrar_jugadas(
+    tabla: pd.DataFrame,
+    ofensiva: str | None = None,
+    defensiva: str | None = None,
+    semana: int | None = None,
+    down: int | None = None,
+    distancia: str | None = None,
+) -> pd.DataFrame:
+    """Filtra la tabla por jugada con todos los filtros enviados (AND).
+
+    Los filtros con valor `None` no se aplican. Filtrar por `down` o por
+    `distancia` deja fuera las jugadas de down 0 (`down_valido` falso). No
+    valida los valores (eso lo hace la API) y no modifica la tabla de entrada.
+    """
+    mascara = pd.Series(True, index=tabla.index)
+    if ofensiva is not None:
+        mascara &= tabla["ofensiva"] == ofensiva
+    if defensiva is not None:
+        mascara &= tabla["defensiva"] == defensiva
+    if semana is not None:
+        mascara &= tabla["semana"] == semana
+    if down is not None:
+        mascara &= (tabla["down"] == down) & tabla["down_valido"]
+    if distancia is not None:
+        mascara &= (tabla["rango_distancia"].astype("object") == distancia) & tabla["down_valido"]
+    return tabla.loc[mascara].copy()

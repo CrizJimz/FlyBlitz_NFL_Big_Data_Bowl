@@ -129,6 +129,264 @@
         "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
         "timestamp": 1795198788516
       }
+    ],
+    "5.1 Implementar `exito.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198892863
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199024911
+      }
+    ],
+    "6.1 Implementar `bolsillo.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198892939
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199025897
+      }
+    ],
+    "7.1 Implementar `receptor.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198893033
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199027474
+      }
+    ],
+    "7.3 Implementar `separacion.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198893548
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199028241
+      }
+    ],
+    "7. Receptor objetivo y separación": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199028297
+      }
+    ],
+    "5.4 Implementar `construir_tabla_base` en `precalculo.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199036466
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199076196
+      }
+    ],
+    "5.5 Implementar `bloque_success_rate` y `bloque_coberturas` en `agregados.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199080944
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199151251
+      }
+    ],
+    "6.5 Agregar `presion` a la tabla base": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199081863
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199152162
+      }
+    ],
+    "5. Success Rate y coberturas": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199151357
+      }
+    ],
+    "6. Eventos de snap/pase, bolsillo y presión": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199152216
+      }
+    ],
+    "8.1 Implementar `procesar_partido` y `construir_tabla_jugadas` en `precalculo.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199156776
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199272449
+      }
+    ],
+    "8.2 Completar `EstadoMotor`, `construir_motor` e hilo de fondo": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199278151
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199577113
+      }
+    ],
+    "8.3 Responder 503 en `/api/analisis` mientras el precálculo no termina": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199584584
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199679184
+      }
+    ],
+    "8.4 Escribir la prueba de integración con datos reales (no opcional)": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199684172
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199783144
+      }
+    ],
+    "8. Precálculo de tracking en hilo de fondo": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199783216
+      }
+    ],
+    "9.1 Implementar `filtrar_jugadas` en `filtros.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199789756
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199959136
+      }
+    ],
+    "9.2 Implementar `bloque_bolsillo`, `bloque_separacion` y `analizar` en `agregados.py`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199791246
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199959264
+      }
+    ],
+    "10.1 Implementar `jugada.py` con `detalle_jugada`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199791984
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199959934
+      }
+    ],
+    "9.3 Completar los esquemas y el endpoint `GET /api/analisis`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795199975135
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200182108
+      }
+    ],
+    "9.4 Escribir la prueba de integración del endpoint con cifras de referencia (no opcional)": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200199355
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200315048
+      }
+    ],
+    "10.2 Agregar esquemas y endpoint de detalle de jugada": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200200115
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200317031
+      }
+    ],
+    "10. `GET /api/jugada/{game_id}/{play_id}`": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200317130
+      }
+    ],
+    "9.8 Implementar `GET /api/jugadas` (agregado al contrato en el commit 9aaf34a)": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200317851
+      },
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200430318
+      }
+    ],
+    "9. `GET /api/analisis` completo con filtros y 422": [
+      {
+        "executionId": "fabfd59e-bdd9-4c09-bae8-73dc1fe989cb",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200430415
+      }
     ]
   }
 }
