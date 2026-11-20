@@ -23,7 +23,7 @@ A. **Zone vs Man por situación**: comparar `pff_passCoverageType` y `pff_passCo
 B. **Tiempo de bolsillo**
    - Tiempo = (primer `frameId` de pase - primer `frameId` de snap) x 0.1 s. Frecuencia confirmada: 10 Hz (26,707 de 26,713 segundos completos tienen 10 cuadros).
    - `autoevent_ballsnap` y `autoevent_passforward` solo como respaldo cuando falte el evento manual.
-   - Las 24 jugadas sin ningún snap se excluyen y se reportan. Las jugadas sin pase (sacks, scrambles) se reportan aparte.
+   - Las 24 jugadas sin ningún snap (21 sí tienen pase) se excluyen del tiempo y se reportan como `n_sin_snap`. Nunca se supone el cuadro 1 como snap. Las jugadas con snap y sin pase se reportan como `n_sin_pase`. Se cumple `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas` (7,583 + 950 + 24 = 8,557). Se documenta en el `README.md`.
    - Cruzar con presión PFF (`pff_hit`, `pff_hurry`, `pff_sack` de cualquier defensor) y con `pff_playAction` (no con el evento `play_action` del tracking).
 C. **Separación receptor-defensor al lanzar**
    - Momento de medición: primer cuadro de `pass_forward` (respaldo `autoevent_passforward`). Es el momento de decisión del QB y existe en casi todos los pases; `pass_arrived` solo existe en 367 jugadas y sesgaría el análisis.

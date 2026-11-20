@@ -19,14 +19,14 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
     "por_down_distancia": [{"down": 1, "distancia": "corta", "n": 0, "exitosas": 0, "tasa": 0.0}] },
   "coberturas": [{"tipo_cobertura": "Zone", "down": 1, "distancia": "corta", "n": 0, "success_rate": 0.0,
     "yardas_promedio": 0.0, "resultado_pase": {"C": 0, "I": 0, "S": 0, "R": 0, "IN": 0}}],
-  "bolsillo": { "n_con_pase": 0, "n_sin_pase": 0, "n_con_respaldo_autoevent": 0,
+  "bolsillo": { "n_con_pase": 0, "n_sin_pase": 0, "n_sin_snap": 0, "n_con_respaldo_autoevent": 0,
     "por_grupo": [{"play_action": true, "presion": false, "n": 0, "tiempo_promedio_s": 0.0, "tiempo_mediana_s": 0.0, "success_rate": 0.0}] },
   "separacion": { "n": 0, "n_sin_receptor_identificado": 0, "momento": "pass_forward", "por_resultado": [{"resultado_pase": "C", "n": 0, "separacion_promedio_yd": 0.0,
     "separacion_mediana_yd": 0.0, "vel_receptor_promedio": 0.0, "vel_defensor_promedio": 0.0}] } }
 ```
 - `tasa` y `success_rate` van de 0 a 1. Cada métrica viaja con su `n`.
 - `presion` = algún defensor con `pff_hit`, `pff_hurry` o `pff_sack` igual a 1 en la jugada.
-- `n_sin_pase` = jugadas sin `pass_forward` ni respaldo (sacks, scrambles). `success_rate` usa `prePenaltyPlayResult` y cuenta IN como fracaso.
+- Con snap: `n_con_pase` tiene evento de pase y `n_sin_pase` no. `n_sin_snap` no tiene `ball_snap` ni respaldo. Siempre `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`. `success_rate` usa `prePenaltyPlayResult` y cuenta IN como fracaso.
 
 ## GET /api/jugada/{game_id}/{play_id}
 ```json
@@ -38,7 +38,7 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
   "frames": [{"frame_id": 1, "jugadores": [{"nfl_id": 0, "nombre": "texto", "dorsal": 0, "equipo": "TB",
     "lado": "ofensiva", "rol": "Pass Route", "x": 0.0, "y": 0.0, "s": 0.0, "o": 0.0, "dir": 0.0}]}] }
 ```
-- Los valores son ejemplos de forma, no cifras reales.
+- Los valores son ejemplos de forma, no cifras reales. Una jugada sin snap responde 200 normal; `eventos` simplemente no trae snap.
 - `lado`: "ofensiva", "defensiva" o "balon". En el balón, `nfl_id`, `nombre`, `dorsal`, `rol`, `o` y `dir` son `null`.
 - `receptor_objetivo`: receptor nombrado en `playDescription`; `separacion_yd` se mide en el cuadro de `pass_forward`. Es `null` si no hay pase o no se identifica el receptor.
 
