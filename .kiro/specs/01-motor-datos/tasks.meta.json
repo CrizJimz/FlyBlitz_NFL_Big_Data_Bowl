@@ -1,0 +1,129 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Crear el paquete `backend/motor/` y `config.py`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198256681
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198306969
+      }
+    ],
+    "1.2 Implementar `carga.py` con las tablas base y el tracking de un partido": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198307823
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198372164
+      }
+    ],
+    "1. Esqueleto de `backend/motor/` y carga de tablas base": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198372241
+      }
+    ],
+    "2.1 Implementar `normalizacion.py`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198379039
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198435973
+      }
+    ],
+    "3.1 Implementar `filtros.py` con `construir_catalogo`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198379957
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198437128
+      }
+    ],
+    "3.2 Crear `esquemas.py` con los modelos de `/api/filtros`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198380752
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198438065
+      }
+    ],
+    "2. Normalización por `playDirection`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198436011
+      }
+    ],
+    "3.3 Crear `EstadoMotor`, `api.py` y el `lifespan` en `main.py`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198442442
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198515414
+      }
+    ],
+    "3. Router `/api` con `GET /api/filtros` y `/health` intacto": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198515496
+      }
+    ],
+    "1.3 Escribir pruebas de ejemplo de la carga": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198516362
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198565879
+      }
+    ],
+    "3.4 Escribir pruebas de ejemplo de `/health` y `/api/filtros`": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198517426
+      },
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198565027
+      }
+    ],
+    "4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend": [
+      {
+        "executionId": "0ab57195-62ad-4379-bea1-7121872ebc94",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795198571233
+      }
+    ]
+  }
+}
