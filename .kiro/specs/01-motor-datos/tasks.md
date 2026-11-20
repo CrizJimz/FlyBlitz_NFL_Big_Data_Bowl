@@ -69,12 +69,12 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - `/health` responde `{"status": "ok"}` también con `estado = error` (ruta inexistente); `/api/filtros` trae las siete llaves y valores iguales a `unique()` de los CSV; todas las rutas de datos cuelgan de `/api`.
     - _Requirements: 1.7, 7.1, 7.2, 7.9, 11.2_
 
-- [-] 4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend
+- [x] 4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend
   - Ejecutar las pruebas (`pytest backend/tests`) y confirmar que `GET /health` y `GET /api/filtros` responden con datos reales.
   - Preguntar al usuario si hay dudas. No ejecutar git (merge, push) sin confirmación explícita; si el usuario confirma, hacer el merge de `backend` a `main` y avisar al compañero de frontend.
 
-- [ ] 5. Success Rate y coberturas
-  - [ ] 5.1 Implementar `exito.py`
+- [x] 5. Success Rate y coberturas
+  - [x] 5.1 Implementar `exito.py`
     - `rango_distancia`, `es_exitosa` con aritmética entera (`5*pre >= 2*ytg` en down 1, `5*pre >= 3*ytg` en down 2, `pre >= ytg` en downs 3-4; `IN` siempre falso) y `resumen_tasa` (con `n == 0` devuelve `tasa 0.0` sin dividir).
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.7, 3.10_
 
@@ -87,12 +87,12 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - **Property 5: Rango de distancia es una partición**
     - **Validates: Requirements 3.7**
 
-  - [ ] 5.4 Implementar `construir_tabla_base` en `precalculo.py`
+  - [x] 5.4 Implementar `construir_tabla_base` en `precalculo.py`
     - Una fila por jugada (8,557) con las columnas que no requieren tracking: `semana`, `ofensiva`, `defensiva`, `down`, `yardas_por_avanzar`, `formacion`, `cobertura`, `tipo_cobertura`, `play_action` (de `pff_playAction`, no del tracking), `resultado_pase`, `yardas_sin_castigo`, `rango_distancia`, `down_valido` y `exitosa`.
     - Unir por `gameId` y `nflId`, nunca por nombre. Conservar las filas con nulos estructurales.
     - _Requirements: 3.1, 3.6, 3.7, 5.9, 9.1, 9.2, 9.4, 9.5, 9.6_
 
-  - [ ] 5.5 Implementar `bloque_success_rate` y `bloque_coberturas` en `agregados.py`
+  - [x] 5.5 Implementar `bloque_success_rate` y `bloque_coberturas` en `agregados.py`
     - Success Rate global y `por_down_distancia` (se omiten combinaciones sin jugadas), con `n_excluidas_down_0`. Coberturas por `tipo_cobertura`, `down` y `rango_distancia` con `n`, `success_rate`, `yardas_promedio` y `resultado_pase` (C, I, S, R, IN, con ceros).
     - _Requirements: 3.6, 3.8, 3.9, 4.1, 4.2, 4.3, 4.4, 7.5, 7.6_
 
@@ -104,8 +104,8 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - **Property 7: Conservación en el bloque de coberturas**
     - **Validates: Requirements 4.1, 4.3, 4.4, 4.5**
 
-- [ ] 6. Eventos de snap/pase, bolsillo y presión
-  - [ ] 6.1 Implementar `bolsillo.py`
+- [x] 6. Eventos de snap/pase, bolsillo y presión
+  - [x] 6.1 Implementar `bolsillo.py`
     - `primer_cuadro_evento`, `elegir_cuadro` (respaldo solo si falta el primario), `categoria_bolsillo` (`con_pase`/`sin_pase`/`sin_snap` según `passResult`, no según la presencia del evento), `tiempo_bolsillo` (`(pase - snap) * 0.1` solo para `con_pase`) y `presion_pff` (nulos = 0).
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.11, 5.12, 9.3, 9.6_
 
@@ -121,12 +121,12 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - **Property 11: Presión PFF**
     - **Validates: Requirements 5.8, 9.3**
 
-  - [ ] 6.5 Agregar `presion` a la tabla base
+  - [x] 6.5 Agregar `presion` a la tabla base
     - Añadir la columna `presion` en `construir_tabla_base` (`precalculo.py`) con `presion_pff` sobre `pffScoutingData`, por `(gameId, playId)`.
     - _Requirements: 5.8, 9.2, 9.3_
 
-- [ ] 7. Receptor objetivo y separación
-  - [ ] 7.1 Implementar `receptor.py`
+- [x] 7. Receptor objetivo y separación
+  - [x] 7.1 Implementar `receptor.py`
     - `RE_RECEPTOR` exactamente como en el diseño, `extraer_nombre_receptor`, `partir_nombre`, `apellido_oficial` (ignora sufijos jr, sr, ii, iii, iv, v) y `resolver_receptores` vectorizada con `merge` y `groupby`: asigna el `nflId` solo si queda un candidato tras desempatar por inicial; si no, `NaN`.
     - _Requirements: 6.2, 6.4, 9.1_
 
@@ -134,7 +134,7 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - **Property 12: Resolución del receptor objetivo**
     - **Validates: Requirements 6.2, 6.4**
 
-  - [ ] 7.3 Implementar `separacion.py`
+  - [x] 7.3 Implementar `separacion.py`
     - `separacion_en_cuadro(jugadores_cuadro, receptor_id, ids_cobertura)` devuelve separación mínima y velocidades `s` del receptor y del defensor más cercano. `separaciones_partido` vectorizada con `merge` receptor × defensores y `idxmin` por `playId`.
     - _Requirements: 6.1, 6.3, 6.5, 6.6, 6.8_
 
@@ -142,22 +142,22 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - **Property 13: Separación igual a la búsqueda por fuerza bruta**
     - **Validates: Requirements 6.3, 6.6, 6.8**
 
-- [ ] 8. Precálculo de tracking en hilo de fondo
-  - [ ] 8.1 Implementar `procesar_partido` y `construir_tabla_jugadas` en `precalculo.py`
+- [x] 8. Precálculo de tracking en hilo de fondo
+  - [x] 8.1 Implementar `procesar_partido` y `construir_tabla_jugadas` en `precalculo.py`
     - Por partido: leer tracking con `usecols`, quedarse con eventos de snap y pase, calcular `cuadro_snap`, `cuadro_pase`, `usa_respaldo`, `categoria_bolsillo`, `tiempo_bolsillo_s`, `receptor_nfl_id`, `separacion_yd`, `vel_receptor` y `vel_defensor`, y liberar el DataFrame.
     - Nunca concatenar los 8,314,178 registros. Si falta un tracking, lanzar `ArchivoFaltante` (estado `error`). Registrar `gameId` y `playId` sin `playDirection`.
     - _Requirements: 1.2, 1.3, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.4, 6.5, 9.4, 9.7_
 
-  - [ ] 8.2 Completar `EstadoMotor`, `construir_motor` e hilo de fondo
+  - [x] 8.2 Completar `EstadoMotor`, `construir_motor` e hilo de fondo
     - `EstadoMotor` con `estado` (`cargando|listo|error`), `tabla_jugadas`, `catalogo` y `tiempos`; `construir_motor(dir_datos)` síncrono (usado por pruebas e hilo) con tiempos medidos con `time.perf_counter()` y `logging`.
     - `iniciar_motor_en_segundo_plano(app)` desde el `lifespan` en `main.py`: las tablas base se cargan antes del `yield` y el tracking en un hilo; `/health` y `/api/filtros` responden de inmediato.
     - _Requirements: 1.2, 1.3, 1.7, 10.3, 11.2_
 
-  - [ ] 8.3 Responder 503 en `/api/analisis` mientras el precálculo no termina
+  - [x] 8.3 Responder 503 en `/api/analisis` mientras el precálculo no termina
     - En `api.py`, dependencia que exige `estado == "listo"` para `/api/analisis`: 503 `{"detail": "Precalculando datos"}` con cabecera `Retry-After: 5`; en `error`, 503 con `Motor de datos no disponible: falta <archivo>`. La ruta queda registrada y su cuerpo completo llega en la tarea 9.3.
     - _Requirements: 1.7, 7.3, 7.9_
 
-  - [ ] 8.4 Escribir la prueba de integración con datos reales (no opcional)
+  - [x] 8.4 Escribir la prueba de integración con datos reales (no opcional)
     - `conftest.py` con un fixture `scope="session"` que ejecuta `construir_motor()` una vez, mide y muestra la duración, y asigna el estado a `app.state.motor` sin ejecutar el `lifespan`.
     - Verificar sobre `tabla_jugadas`: 8,557 jugadas sin llaves duplicadas; `con_pase + sin_pase + sin_snap = 7,541 + 992 + 24` (`sin_pase` = 542 S, 447 R, 3 C/I); 35 jugadas con `down 0`; 7,240 con separación medida y 325 en `n_sin_receptor_identificado` (322 sin receptor identificable y 3 sin cuadro de pase).
     - Verificar `tiempo_bolsillo_s >= 0` en las `con_pase`; si alguna incumple, reportar el hallazgo al usuario antes de decidir cómo tratarla. Verificar velocidad máxima de jugadores 11.18 yd/s sin balón.
@@ -167,23 +167,23 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - `/api/analisis` responde 503 con `Retry-After` y `{"detail": "Precalculando datos"}` con `EstadoMotor` en `cargando`; `/health` responde ok en `cargando` y `error`; construir el motor no crea archivos nuevos en el árbol del proyecto.
     - _Requirements: 1.6, 1.7, 11.2_
 
-- [ ] 9. `GET /api/analisis` completo con filtros y 422
-  - [ ] 9.1 Implementar `filtrar_jugadas` en `filtros.py`
+- [x] 9. `GET /api/analisis` completo con filtros y 422
+  - [x] 9.1 Implementar `filtrar_jugadas` en `filtros.py`
     - Máscara con todos los filtros enviados (`ofensiva`, `defensiva`, `semana`, `down`, `distancia`). Filtrar por `down` o `distancia` deja fuera las jugadas de `down 0`.
     - _Requirements: 7.4, 7.7_
 
-  - [ ] 9.2 Implementar `bloque_bolsillo`, `bloque_separacion` y `analizar` en `agregados.py`
+  - [x] 9.2 Implementar `bloque_bolsillo`, `bloque_separacion` y `analizar` en `agregados.py`
     - Bolsillo: `n_con_pase`, `n_sin_pase`, `n_sin_snap`, `n_con_respaldo_autoevent` (jugadas `con_pase` con snap o pase de respaldo) y `por_grupo` por `play_action` y `presion` solo sobre `con_pase` (promedio, mediana, `success_rate` sobre `down_valido`; grupos vacíos omitidos).
     - Separación: por `resultado_pase` C, I, IN con `n`, promedio, mediana y velocidades, `n_sin_receptor_identificado` y `momento = "pass_forward"`.
     - `analizar(tabla, filtros)` con la forma de `contrato-api.md`; con subconjunto vacío devuelve `n_jugadas = 0`, listas vacías y contadores en 0, sin dividir entre cero.
     - _Requirements: 5.3, 5.7, 5.10, 6.4, 6.5, 6.6, 6.7, 7.3, 7.5, 7.7, 7.10_
 
-  - [ ] 9.3 Completar los esquemas y el endpoint `GET /api/analisis`
+  - [x] 9.3 Completar los esquemas y el endpoint `GET /api/analisis`
     - Modelos Pydantic con `response_model=` para `FiltrosAplicados`, `Tasa`, `TasaDownDistancia`, `GlobalYPorDownDistancia`, `ResultadoPase`, `GrupoCobertura`, `GrupoBolsillo`, `Bolsillo`, `GrupoSeparacion`, `Separacion` y `AnalisisRespuesta`.
     - Parámetros: `down` con `Query(ge=1, le=4)`, `distancia` como `Literal["corta","media","larga"]`; 422 con el formato de FastAPI para `semana`, `ofensiva` o `defensiva` fuera del catálogo. Endpoint `def` síncrono. `filtros_aplicados` devuelve los valores enviados.
     - _Requirements: 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9_
 
-  - [ ] 9.4 Escribir la prueba de integración del endpoint con cifras de referencia (no opcional)
+  - [x] 9.4 Escribir la prueba de integración del endpoint con cifras de referencia (no opcional)
     - `GET /api/analisis` sin filtros por `TestClient`: `n_jugadas = 8557`, `n_excluidas_down_0 = 35`, `bolsillo` con 7,541 / 992 / 24, y `separacion` con 7,240 medidas y `n_sin_receptor_identificado = 325`. Llaves exactas del contrato; `tasa` entre 0 y 1; con `down=1` y `distancia=corta` las cifras coinciden con un cálculo pandas independiente.
     - _Requirements: 7.3, 7.5, 7.6, 7.10, 9.4, 10.1, 10.5_
 
@@ -199,13 +199,17 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - 422 en `down=0`, `down=abc`, `semana=99`, `distancia=xyz`, equipo inexistente; 200 con ceros cuando ningún dato cumple los filtros.
     - _Requirements: 7.7, 7.8_
 
-- [ ] 10. `GET /api/jugada/{game_id}/{play_id}`
-  - [ ] 10.1 Implementar `jugada.py` con `detalle_jugada`
+  - [x] 9.8 Implementar `GET /api/jugadas` (agregado al contrato en el commit 9aaf34a)
+    - Reusar `filtrar_jugadas` y la validación 422 de `/api/analisis`. Devuelve la lista `[{game_id, play_id, descripcion, down, yardas_por_avanzar, resultado_pase}]` ordenada por `game_id` y `play_id`; `[]` si no hay coincidencias. Responde con las tablas base, sin esperar el precálculo. Modelo Pydantic con las llaves exactas y prueba de ejemplo con `TestClient` (8,557 jugadas sin filtros; un filtro cuadra con pandas directo).
+    - _Requirements: 7.4, 7.7, 7.8, 7.9_
+
+- [x] 10. `GET /api/jugada/{game_id}/{play_id}`
+  - [x] 10.1 Implementar `jugada.py` con `detalle_jugada`
     - Leer bajo demanda solo el tracking del partido pedido (`tracking_partido_normalizado` con `lru_cache(maxsize=4)`, sin modificar lo cacheado), unir `displayName` y `pff_role` por `nflId`, asignar `lado` (`ofensiva`, `defensiva`, `balon`), `eventos` con el primer cuadro de cada tipo ordenado por `frame_id`, `frames_por_segundo = 10` y `receptor_objetivo` con separación en `pass_forward` (o `None`).
     - El balón lleva `equipo = "football"` y `nfl_id`, `nombre`, `dorsal`, `rol`, `o` y `dir` nulos. Devuelve `None` si la jugada no existe. No depende del precálculo completo.
     - _Requirements: 1.4, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 9.1_
 
-  - [ ] 10.2 Agregar esquemas y endpoint de detalle de jugada
+  - [x] 10.2 Agregar esquemas y endpoint de detalle de jugada
     - Modelos `Evento`, `ReceptorObjetivo`, `JugadorFrame`, `Frame` y `JugadaRespuesta` con las llaves exactas del contrato. 404 `{"detail": "Jugada no encontrada"}` si no existe; 422 si `game_id` o `play_id` no son enteros. Responde cuando las tablas base están cargadas, aunque el precálculo siga en curso.
     - _Requirements: 8.1, 8.9, 8.10, 8.11_
 
@@ -218,7 +222,7 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - Jugada sin snap `2021091200` / `4367`: 200 y `eventos` sin snap. Jugada con sack: `receptor_objetivo = null`. 404 en jugada inexistente. Un espía confirma que `leer_tracking_partido` se llama una vez, con un solo `gameId`, por petición.
     - _Requirements: 1.4, 8.7, 8.9, 8.10_
 
-- [ ] 11. Checkpoint - GET /api/jugada funciona: merge a main y avisar
+- [x] 11. Checkpoint - GET /api/jugada funciona: merge a main y avisar
   - Ejecutar las pruebas (`pytest backend/tests`) y confirmar que `GET /api/analisis` y `GET /api/jugada/{game_id}/{play_id}` responden con datos reales.
   - Preguntar al usuario si hay dudas. No ejecutar git sin confirmación explícita; si el usuario confirma, hacer el merge de `backend` a `main` y avisar al compañero de frontend.
 
