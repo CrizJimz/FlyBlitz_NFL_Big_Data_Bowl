@@ -187,3 +187,40 @@ Revisando desviaciones del stack...
 01:08:10 
 RESULTADO: TODO OK, puedes entregar.
 01:08:10 FIN con código de salida 0
+
+===== setup 2026-11-20 09:45:14 =====
+09:45:14 Sistema detectado: windows x64  |  Python del arranque: 3.12.12
+09:45:14 MODO: check  |  versión del script: 2026-11-16  |  argumentos: --check
+09:45:14 SISTEMA: Windows-11-10.0.26200-SP0  |  detectado: windows x64  |  versión: 10.0.26200
+09:45:14 WINDOWS: build 26200  |  administrador: False
+09:45:14 PYTHON: 3.12.12 (C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl\.venv\Scripts\python.exe)
+09:45:14 USUARIO: cchri  |  carpeta actual: C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl
+09:45:14 PROYECTO: C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl  |  largo de ruta: 59  |  espacios: False  |  no ASCII: False
+09:45:14 DISCO LIBRE: 33.9 GB
+09:45:14 PROXY: ninguno
+09:45:14 Proyecto: C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl
+09:45:14 
+Validando (no se descarga ni instala nada)...
+09:45:21 $ C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl\.hackathon\.tools\uv\uv.exe pip check --python C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl\.venv\Scripts\python.exe
+09:45:22 Checked 57 packages in 16ms
+All installed packages are compatible
+09:45:22 $ C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl\.venv\Scripts\python.exe -c import pandas, numpy, fastapi, uvicorn, pydantic, strands, boto3, httpx
+09:45:27 
+09:45:27   Pieza              Esperado                            Encontrado      Estado
+09:45:27   -----------------  ----------------------------------  --------------  ------
+09:45:27   uv                 0.11.19                             0.11.19         OK    
+09:45:27   Python (.venv)     3.12.12                             3.12.12         OK    
+09:45:27   Node               v22.23.1                            v22.23.1        OK    
+09:45:27   npm                10.x                                10.9.8          OK    
+09:45:27   Paquetes Python    9 fijos                             9 coinciden     OK    
+09:45:27   Paquetes npm       12 fijos                            12 coinciden    OK    
+09:45:27   pip check          sin conflictos                      sin conflictos  OK    
+09:45:27   Importar paquetes  pandas, fastapi, pydantic, strands  importan        OK    
+09:45:27 
+Revisando desviaciones del stack...
+09:45:28 $ C:\HACKATHON\plantilla-hackathon\FlyBlitz_NFL_Big_Data_Bowl\.venv\Scripts\python.exe -c import backend.main as m;assert hasattr(m,'app'), 'APP';assert any(getattr(r,'path','')=='/health' for r in m.app.routes), 'HEALTH'
+09:45:28 
+09:45:28     El proyecto sigue el stack del evento
+09:45:28 
+RESULTADO: TODO OK, puedes entregar.
+09:45:28 FIN con código de salida 0
