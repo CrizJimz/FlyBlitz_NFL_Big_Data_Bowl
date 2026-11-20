@@ -44,7 +44,7 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
 
 ## Flujo de trabajo (dos Kiros)
 - Ramas: `backend` toca solo `backend/` y `frontend` toca solo `dashboard/`. Nadie programa directo en `main`.
-- `.kiro/` (specs, steering y este contrato) se cambia solo en `main`. Cada rama lo trae con `git merge main`. Si un lado necesita cambiar el contrato, avisa al otro antes.
+- Compartidos, solo en `main`: `.kiro/steering/`, este contrato, `enfoque-coach.md`, `esquema-oficial.md` y `auditoria-datos.md`. Cada rama los trae con `git merge main`; antes de cambiarlos, avisar al otro. Los `requirements.md`, `design.md` y `tasks.md` de cada spec viven en la rama de su dueño: `01-motor-datos` en `backend`, `02-dashboard` en `frontend`.
 - Mientras el backend no responda, el frontend usa los ejemplos de este contrato como mocks marcados como tales. Ningún mock llega a la entrega.
 - Integración: merge de la rama a `main` solo si funciona (`GET /health` para backend, `vite build` para frontend). Después, el otro lado hace `git merge main`.
 - Antes de empezar: `git pull`. Commits pequeños y con mensaje claro.
