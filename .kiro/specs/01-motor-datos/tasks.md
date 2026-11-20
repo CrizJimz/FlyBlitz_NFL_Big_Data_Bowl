@@ -222,7 +222,7 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - Jugada sin snap `2021091200` / `4367`: 200 y `eventos` sin snap. Jugada con sack: `receptor_objetivo = null`. 404 en jugada inexistente. Un espía confirma que `leer_tracking_partido` se llama una vez, con un solo `gameId`, por petición.
     - _Requirements: 1.4, 8.7, 8.9, 8.10_
 
-- [ ] 11. Checkpoint - GET /api/jugada funciona: merge a main y avisar
+- [x] 11. Checkpoint - GET /api/jugada funciona: merge a main y avisar
   - Ejecutar las pruebas (`pytest backend/tests`) y confirmar que `GET /api/analisis` y `GET /api/jugada/{game_id}/{play_id}` responden con datos reales.
   - Preguntar al usuario si hay dudas. No ejecutar git sin confirmación explícita; si el usuario confirma, hacer el merge de `backend` a `main` y avisar al compañero de frontend.
 

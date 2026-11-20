@@ -387,6 +387,13 @@
         "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
         "timestamp": 1795200430415
       }
+    ],
+    "11. Checkpoint - GET /api/jugada funciona: merge a main y avisar": [
+      {
+        "executionId": "b1920ea9-7679-40b4-b6e6-4dd721052e56",
+        "chatSessionId": "sess_d00992c4-ea0a-4b17-98ea-a08b32b4b61f",
+        "timestamp": 1795200541202
+      }
     ]
   }
 }
