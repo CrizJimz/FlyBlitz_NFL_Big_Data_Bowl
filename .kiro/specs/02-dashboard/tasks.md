@@ -20,12 +20,12 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
   - Verificar: después de `npm run build`, cero resultados de "mock" y "DATOS DE EJEMPLO" en `dist`.
   - _Requisitos: 4.5, 5.1-5.8, 6.1-6.8_
 
-- [ ] 3. Filtros globales
+- [x] 3. Filtros globales
   - `PanelFiltros`: ofensiva y defensiva en `<select>`, semana, down y distancia en chips, "Todos" y "Limpiar"; etiquetas de distancia desde `rangos_distancia`; chips de `filtros_aplicados`; 422 junto a los filtros.
   - Probar contra `api/filtros` real (backend en el puerto 8000): 32 equipos, semanas 1-8, downs 1-4.
   - _Requisitos: 4.1-4.8_
 
-- [ ] 4. Pantalla Success Rate
+- [x] 4. Pantalla Success Rate
   - KPI global, tarjetas de `n_jugadas` y `n_excluidas_down_0`, mapa de calor de 4 × 3 con escala y leyenda, "Sin jugadas" en celdas omitidas, "muestra pequeña" si n < 20, `<details>` con la definición.
   - _Requisitos: 7.1-7.7, 6.3, 6.4, 12.3_
 
