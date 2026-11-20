@@ -1,4 +1,4 @@
-﻿# Tareas: 02-dashboard
+# Tareas: 02-dashboard
 
 Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashboard/` y esta spec. Cada tarea termina con `npm run build` sin errores (desde `dashboard/`) y un commit pequeño. Cada tarea deja algo visible en el navegador.
 
@@ -13,7 +13,7 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
   - Verificar: cero resultados de `'/api` y `localhost` en `src`.
   - _Requisitos: 1.2-1.8, 2.1-2.6, 3.1-3.4, 5.4_
 
-- [ ] 2. Capa de API, mocks e indicador de ejemplo
+- [x] 2. Capa de API, mocks e indicador de ejemplo
   - `api/tipos.ts` (incluye `JugadaListada`), `api/cliente.ts` (`getFiltros`, `getAnalisis`, `getJugadas`, `getJugada`, `ErrorApi`, `usarMocks`; 404, 422 y 503 con `Retry-After`), `api/usePeticion.ts` (descarta respuestas viejas, conserva el último resultado válido, reintenta tras 503).
   - Mocks `filtros`, `analisis`, `jugadas` y `jugada` con la forma del contrato, el comentario MOCK, combinaciones omitidas (nunca `n = 0`), `tipos_cobertura` en orden alfabético y un 503 en el primer `analisis` de la sesión.
   - `AvisoMock`, `Estado.tsx` (cargando, error con reintento, sin datos, muestra pequeña), `ErrorBoundary`, `utilidades/formato.ts`.
