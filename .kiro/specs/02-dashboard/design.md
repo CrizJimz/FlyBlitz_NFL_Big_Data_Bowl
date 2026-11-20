@@ -127,6 +127,10 @@ export interface JugadorCuadro {
   nfl_id: number | null; nombre: string | null; dorsal: number | null; equipo: string
   lado: Lado; rol: string | null; x: number; y: number; s: number; o: number | null; dir: number | null
 }
+export interface JugadaListada {      // elemento de GET api/jugadas
+  game_id: number; play_id: number; descripcion: string; down: number
+  yardas_por_avanzar: number; resultado_pase: ResultadoPase
+}
 export interface RespuestaJugada {
   game_id: number; play_id: number; descripcion: string; semana: number; down: number
   yardas_por_avanzar: number; ofensiva: string; defensiva: string; resultado_pase: ResultadoPase
@@ -150,10 +154,11 @@ export const usarMocks = import.meta.env.DEV && import.meta.env.MODE === 'mock'
 
 export async function getFiltros(): Promise<RespuestaFiltros>
 export async function getAnalisis(f: Filtros): Promise<RespuestaAnalisis>
+export async function getJugadas(f: Filtros): Promise<JugadaListada[]>
 export async function getJugada(gameId: number, playId: number): Promise<RespuestaJugada>
 ```
 
-- Rutas: `fetch('api/filtros')`, `fetch('api/analisis?' + params)` y `fetch(\`api/jugada/${gameId}/${playId}\`)`, siempre sin diagonal inicial.
+- Rutas: `fetch('api/filtros')`, `fetch('api/analisis?' + params)`, `fetch('api/jugadas?' + params)` y `fetch(\`api/jugada/${gameId}/${playId}\`)`, siempre sin diagonal inicial.
 - `params` se arma con `URLSearchParams` y solo incluye los filtros distintos de `null`.
 - Respuesta no OK: se lee `detail` del JSON (formato FastAPI) y se lanza `ErrorApi(estado, detalle)`. En un error 422 de validación, `detail` es una lista y se resume en un texto. Si el JSON no se puede leer, el mensaje es "Error del servidor (estado)".
 - Error de red: `ErrorApi(0, 'No se pudo conectar con la API')`.
@@ -210,7 +215,7 @@ function usePeticion<T>(fn: () => Promise<T>, deps: unknown[]): EstadoPeticion<T
 ```
 (Las cifras del boceto son de forma, no reales.)
 
-- La cuadrícula se arma como un mapa de 4 × 3 con llave `${down}-${distancia}`. Las celdas que faltan o tienen `n = 0` muestran "Sin jugadas" (pregunta abierta 2 de los requisitos).
+- La cuadrícula se arma como un mapa de 4 × 3 con llave `${down}-${distancia}`. La API omite las combinaciones sin jugadas, así que las celdas que faltan muestran "Sin jugadas" (también si llegara `n = 0`).
 - Las celdas con `n < 20` llevan la etiqueta "muestra pequeña" y un borde punteado.
 - El texto de ayuda es un `<details>` con la definición: umbrales 40/60/100%, uso de `prePenaltyPlayResult`, IN cuenta como fracaso y es una convención del equipo.
 
@@ -236,6 +241,7 @@ function usePeticion<T>(fn: () => Promise<T>, deps: unknown[]): EstadoPeticion<T
   - En la línea de tiempo se marcan los eventos en su posición. Las etiquetas se acortan ("snap", "pase", "sack") y el nombre completo va en un tooltip.
   - Si no hay snap, aparece la etiqueta "Sin snap registrado" y no se marca ningún cuadro como snap.
 - **Separación:** si `receptor_objetivo` existe, se muestra "{nombre} · {separacion_yd} yd al lanzar el pase". En el cuadro del primer evento de pase (`pass_forward` o, si falta, `autoevent_passforward`) se dibuja una línea punteada del receptor a su defensor `defensiva` más cercano de ese mismo cuadro. Esta línea solo sirve de guía visual; la cifra mostrada es la `separacion_yd` de la API, no un cálculo propio. Si es `null`, se muestra "Receptor no identificado".
+- **Lista de jugadas:** columna izquierda del visor con `getJugadas(filtros)`. Cada fila muestra el chip "3rd & 2", el resultado y la descripción recortada. Al hacer clic se carga esa jugada. La entrada manual de ids queda arriba de la lista como respaldo.
 - **Errores:** si la jugada no existe, la API responde 404 y se muestra el `detail` ("Jugada no encontrada"). `game_id` y `play_id` se validan como enteros positivos antes de llamar a la API.
 - **Rendimiento:** con un máximo de 203 cuadros × 23 marcadores, el SVG con React alcanza 10 fps sin problema. Solo se renderiza el cuadro actual.
 
@@ -271,7 +277,8 @@ function usePeticion<T>(fn: () => Promise<T>, deps: unknown[]): EstadoPeticion<T
 | 503 (precálculo) | api/analisis | estado de carga con "Precalculando datos" y "reintento en N s"; los filtros y el visor siguen funcionando |
 | 404 | api/jugada | `detail` de la API |
 | 422 | api/analisis | `detail` junto a los filtros (incluye equipo, semana o distancia inexistentes); se conservan los últimos datos |
-| n = 0 | cualquier métrica | "Sin jugadas para estos filtros" |
+| Combinación omitida o n = 0 | cualquier métrica | "Sin jugadas" |
+| `api/jugadas` devuelve `[]` | Visor 2D | "Sin jugadas para estos filtros" |
 | n < 20 | celdas y tarjetas | etiqueta "muestra pequeña" |
 | Modo_Mock | global | chip naranja "DATOS DE EJEMPLO" en la barra superior y en cada pantalla |
 | Suma de bolsillo no cuadra | Bolsillo | aviso naranja con las dos cifras |
@@ -291,4 +298,4 @@ El stack no incluye pruebas de frontend (pytest y httpx son del backend) y la re
 ## 10. Riesgos
 - **Convención de ángulos `o` y `dir`:** se valida visualmente con datos reales (sección 6.2). Si se ve al revés, el ajuste es una sola función.
 - **Peso de `api/jugada`:** son hasta 203 × 23 objetos (unos 4,700). Es aceptable, aunque si el backend tarda se muestra el estado de carga.
-- **Sin endpoint de listado de jugadas:** el Coach escribe los ids a mano (pregunta abierta 1). Mientras tanto, se ofrecen 2 o 3 jugadas sugeridas como accesos rápidos, tomadas de `auditoria-datos.md` (por ejemplo una sin snap), con la aclaración de que vienen de ese archivo.
+- **Lista de jugadas larga:** sin filtros, `api/jugadas` trae las 8,557 jugadas. La lista muestra las primeras 200 con un aviso "Mostrando 200 de N; usa los filtros", sin paginar en el cliente.

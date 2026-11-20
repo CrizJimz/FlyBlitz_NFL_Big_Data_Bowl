@@ -108,7 +108,7 @@ Cada requisito indica su fase.
 #### Criterios de aceptación
 1. WHILE una petición está en curso, THE Dashboard SHALL mostrar un indicador de carga en la pantalla afectada.
 2. IF la API responde 404, THEN THE Dashboard SHALL mostrar el `detail` de la respuesta (por ejemplo "Jugada no encontrada").
-3. WHEN una métrica llega con `n = 0`, THE Dashboard SHALL mostrar "Sin jugadas para estos filtros" en lugar de 0% o una barra vacía.
+3. WHEN una combinación no llega en `por_down_distancia`, `coberturas`, `por_grupo` o `por_resultado` (la API omite las combinaciones sin jugadas), o una métrica llega con `n = 0`, THE Dashboard SHALL mostrar "Sin jugadas" en lugar de 0% o una barra vacía.
 4. WHEN una métrica se basa en pocas jugadas (n menor que 20), THE Dashboard SHALL marcarla como "muestra pequeña".
 5. IF `api/analisis` responde 503, THEN THE Dashboard SHALL mostrar el estado de carga con el `detail` de la respuesta (por ejemplo "Precalculando datos") en lugar de un error.
 6. WHEN `api/analisis` responde 503, THE Capa_API SHALL reintentar la misma petición después de los segundos que indica el encabezado `Retry-After`, o después de 5 s si el encabezado falta o no es un número.
@@ -133,7 +133,7 @@ Cada requisito indica su fase.
 **Historia:** Como Coach, quiero ver una jugada animada en el campo, para entender la posición de receptores y defensores cuando el QB lanza.
 
 #### Criterios de aceptación
-1. THE Visor_2D SHALL permitir al Coach escribir `game_id` y `play_id` y cargar la jugada con `GET api/jugada/{game_id}/{play_id}`.
+1. THE Visor_2D SHALL mostrar la lista de jugadas de `GET api/jugadas` con los Filtros globales, con Chip_Situacion, `resultado_pase` y `descripcion` en cada fila, y cargar con `GET api/jugada/{game_id}/{play_id}` la jugada que el Coach elija. Como respaldo, el Coach puede escribir `game_id` y `play_id`. IF la lista llega vacía (`[]`), THEN THE Visor_2D SHALL mostrar "Sin jugadas para estos filtros".
 2. THE Visor_2D SHALL dibujar en SVG un campo de 120 × 53.3 yd con zonas de anotación, líneas cada 5 yd y números cada 10 yd, más un margen alrededor para los jugadores que salen del campo.
 3. THE Visor_2D SHALL usar `x` y `y` tal como los entrega la API, sin volver a normalizar por dirección de juego.
 4. THE Visor_2D SHALL distinguir por color y forma a la ofensiva (círculo con dorsal), la defensiva (otra forma con dorsal) y el balón, según `lado` ("ofensiva", "defensiva", "balon").
@@ -185,9 +185,10 @@ Cada requisito indica su fase.
 
 #### Criterios de aceptación
 1. THE Dashboard SHALL integrarse a `main` solo cuando `npm run build` termine sin errores.
-2. WHEN el backend responda los tres endpoints, THE Dashboard SHALL funcionar sin Mocks y sin cambios en las pantallas, solo iniciando con `npm run dev` en lugar de `npm run dev:mock`.
+2. WHEN el backend responda los cuatro endpoints, THE Dashboard SHALL funcionar sin Mocks y sin cambios en las pantallas, solo iniciando con `npm run dev` en lugar de `npm run dev:mock`.
 3. THE Dashboard SHALL mostrar su hallazgo principal (Success Rate) aunque fallen otras secciones.
 
-## Preguntas abiertas para el backend
-1. El contrato no tiene un endpoint para listar jugadas. Por eso el Coach debe escribir `game_id` y `play_id` a mano en el Visor_2D. ¿Agregamos algo como `GET api/jugadas?ofensiva=...&semana=...` con `game_id`, `play_id`, `descripcion`, `down` y `yardas_por_avanzar`? Mientras tanto se usa la entrada manual.
-2. El contrato no aclara si `api/analisis` devuelve celdas de down por distancia con `n = 0` o las omite. El Dashboard soportará ambos casos y mostrará "Sin jugadas" en las celdas que falten.
+## Preguntas resueltas con el backend (contrato `9aaf34a`)
+1. Listado de jugadas: `GET api/jugadas` con los mismos filtros y 422 que `api/analisis`, ordenado por `game_id` y `play_id`, `[]` si no hay coincidencias y nunca 503.
+2. Celdas vacías: se omiten en `por_down_distancia`, `coberturas`, `por_grupo` y `por_resultado`.
+3. Puerto de desarrollo: 8000. En producción FastAPI sirve `dashboard/dist`; el frontend solo genera `dist`.
