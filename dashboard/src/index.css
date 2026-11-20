@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+  body {
+    @apply bg-navy-950 font-sans text-texto antialiased;
+  }
+}
+
+@layer components {
+  /* Panel o tarjeta dentro del marco de tablet */
+  .panel {
+    @apply rounded-2xl border border-navy-700 bg-navy-800 p-5;
+  }
+  /* Botón táctil: área mínima de 44 x 44 px */
+  .boton {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-xl px-4 font-semibold
+      transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-acento;
+  }
+  .boton-primario {
+    @apply boton bg-acento text-navy-950 hover:bg-sky-400;
+  }
+  .boton-secundario {
+    @apply boton border border-navy-700 bg-navy-900 text-texto hover:border-acento;
+  }
+  /* Chip de filtro o de situación (estilo TV) */
+  .chip {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-full border border-navy-700 bg-navy-900 px-4
+      text-sm font-semibold text-texto;
+  }
+  .chip-activo {
+    @apply chip border-acento bg-acento/15 text-acento;
+  }
+  /* Número grande de KPI */
+  .kpi-valor {
+    @apply text-5xl font-extrabold tabular-nums tracking-tight;
+  }
+}

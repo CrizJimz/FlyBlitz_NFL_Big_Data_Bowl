@@ -1,10 +1,10 @@
-# Tareas: 02-dashboard
+﻿# Tareas: 02-dashboard
 
 Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashboard/` y esta spec. Cada tarea termina con `npm run build` sin errores (desde `dashboard/`) y un commit pequeño. Cada tarea deja algo visible en el navegador.
 
 ## Fase 1
 
-- [ ] 1. Configuración base y marco visible
+- [x] 1. Configuración base y marco visible
   - `vite.config.ts`: proxy `/api` → `http://localhost:8000`, conservar `base: './'`.
   - `package.json`: script `"dev:mock": "vite --mode mock"`, sin cambiar dependencias.
   - `index.html`: título "FlyBlitz · Sideline".
