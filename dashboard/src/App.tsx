@@ -12,6 +12,7 @@ import { MarcoTablet } from './componentes/MarcoTablet'
 import { PanelFiltros } from './componentes/PanelFiltros'
 import { datosVisibles, VistaAnalisis } from './componentes/VistaAnalisis'
 import { PantallaSuccessRate } from './pantallas/SuccessRate'
+import { PantallaVisor2D } from './pantallas/Visor2D'
 import { SECCIONES, seccionDesdeHash, type Seccion } from './secciones'
 
 /** Sincroniza la sección activa con location.hash (relativo: funciona en la subruta de despliegue). */
@@ -31,13 +32,16 @@ function useSeccionHash(): [Seccion, (s: Seccion) => void] {
 }
 
 /** Pantalla de una sección. Las de fase 2 sin terminar muestran "Próximamente". */
-function ContenidoSeccion({ seccion, opciones, analisis }: {
+function ContenidoSeccion({ seccion, opciones, analisis, filtros }: {
   seccion: Seccion
   /** null si api/filtros falló: las pantallas siguen funcionando sin las etiquetas de rango. */
   opciones: RespuestaFiltros | null
   analisis: ResultadoPeticion<RespuestaAnalisis>
+  filtros: Filtros
 }) {
   const def = SECCIONES.find((s) => s.id === seccion)!
+  // El visor no depende de api/analisis: funciona aunque esté en 503 (precálculo).
+  if (seccion === 'visor') return <PantallaVisor2D filtros={filtros} />
   if (seccion === 'success-rate') {
     return (
       <VistaAnalisis resultado={analisis}>
@@ -88,7 +92,12 @@ export default function App() {
           )}
           {/* El análisis se muestra aunque api/filtros falle (sin filtros aplicados). */}
           <ErrorBoundary llave={seccion}>
-            <ContenidoSeccion seccion={seccion} opciones={opciones.estado.tipo === 'listo' ? opciones.estado.datos : null} analisis={analisis} />
+            <ContenidoSeccion
+              seccion={seccion}
+              opciones={opciones.estado.tipo === 'listo' ? opciones.estado.datos : null}
+              analisis={analisis}
+              filtros={filtros}
+            />
           </ErrorBoundary>
         </main>
       </div>

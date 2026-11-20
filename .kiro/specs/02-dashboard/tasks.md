@@ -29,12 +29,12 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
   - KPI global, tarjetas de `n_jugadas` y `n_excluidas_down_0`, mapa de calor de 4 × 3 con escala y leyenda, "Sin jugadas" en celdas omitidas, "muestra pequeña" si n < 20, `<details>` con la definición.
   - _Requisitos: 7.1-7.7, 6.3, 6.4, 12.3_
 
-- [ ] 5. Visor 2D: lista, campo y jugadores (cuadro fijo)
+- [x] 5. Visor 2D: lista, campo y jugadores (cuadro fijo)
   - `utilidades/eventos.ts`, `visor/Campo.tsx`, `visor/Jugadores.tsx`, `visor/FichaJugada.tsx`.
   - Pantalla `Visor2D.tsx` con la lista de `getJugadas(filtros)` (máximo 200 filas con aviso), entrada manual de ids como respaldo, 404 con su `detail` y "Sin jugadas para estos filtros" si llega `[]`.
   - _Requisitos: 8.1-8.6, 8.13, 8.14_
 
-- [ ] 6. Visor 2D: reproducción y línea de tiempo
+- [x] 6. Visor 2D: reproducción y línea de tiempo
   - `useReproductor.ts`, `LineaTiempo.tsx` (primer cuadro por evento, "Sin snap registrado"), separación "al lanzar el pase" o "Receptor no identificado", línea punteada al defensor más cercano en el cuadro del pase y nota de 0.5 s.
   - _Requisitos: 8.7-8.12_
 

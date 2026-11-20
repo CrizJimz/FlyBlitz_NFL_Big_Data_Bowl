@@ -14,7 +14,7 @@ export const SECCIONES: DefinicionSeccion[] = [
   { id: 'coberturas', etiqueta: 'Coberturas', descripcion: 'Zone vs Man por situación', fase: 2, lista: false },
   { id: 'bolsillo', etiqueta: 'Bolsillo', descripcion: 'Tiempo del snap al pase', fase: 2, lista: false },
   { id: 'separacion', etiqueta: 'Separación', descripcion: 'Receptor contra defensor', fase: 2, lista: false },
-  { id: 'visor', etiqueta: 'Visor 2D', descripcion: 'Jugada cuadro por cuadro', fase: 1, lista: false },
+  { id: 'visor', etiqueta: 'Visor 2D', descripcion: 'Jugada cuadro por cuadro', fase: 1, lista: true },
 ]
 
 export const SECCION_INICIAL: Seccion = 'success-rate'
