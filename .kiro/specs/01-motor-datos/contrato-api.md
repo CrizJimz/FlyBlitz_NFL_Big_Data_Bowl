@@ -24,9 +24,15 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
   "separacion": { "n": 0, "n_sin_receptor_identificado": 0, "momento": "pass_forward", "por_resultado": [{"resultado_pase": "C", "n": 0, "separacion_promedio_yd": 0.0,
     "separacion_mediana_yd": 0.0, "vel_receptor_promedio": 0.0, "vel_defensor_promedio": 0.0}] } }
 ```
-- `tasa` y `success_rate` van de 0 a 1. Cada métrica viaja con su `n`.
+- `tasa` y `success_rate` van de 0 a 1. Cada métrica viaja con su `n`. Las combinaciones sin jugadas se **omiten** en `por_down_distancia`, `coberturas`, `por_grupo` y `por_resultado` (nunca llegan con `n = 0`).
 - `presion` = algún defensor con `pff_hit`, `pff_hurry` o `pff_sack` igual a 1 en la jugada.
-- Con snap: `n_con_pase` tiene evento de pase y `n_sin_pase` no. `n_sin_snap` no tiene `ball_snap` ni respaldo. Siempre `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`. `success_rate` usa `prePenaltyPlayResult` y cuenta IN como fracaso.
+- Con snap: `n_con_pase` = C, I o IN con evento de pase; `n_sin_pase` = el resto (S y R siempre, aunque traigan evento de pase). `n_sin_snap` no tiene `ball_snap` ni respaldo. Siempre `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`. `success_rate` usa `prePenaltyPlayResult` y cuenta IN como fracaso.
+
+## GET /api/jugadas
+Mismos parámetros opcionales y mismos 422 que `/api/analisis`. Responde 200 en cuanto cargan las tablas base (no espera el tracking, nunca 503 por precálculo). Lista ordenada por `game_id` y `play_id`; sin coincidencias devuelve `[]`.
+```json
+[{ "game_id": 2021090900, "play_id": 97, "descripcion": "texto", "down": 3, "yardas_por_avanzar": 2, "resultado_pase": "C" }]
+```
 
 ## GET /api/jugada/{game_id}/{play_id}
 ```json
@@ -47,4 +53,5 @@ Parámetros opcionales: `ofensiva`, `defensiva`, `semana`, `down`, `distancia` (
 - Compartidos, solo en `main`: `.kiro/steering/`, este contrato, `enfoque-coach.md`, `esquema-oficial.md` y `auditoria-datos.md`. Cada rama los trae con `git merge main`; antes de cambiarlos, avisar al otro. Los `requirements.md`, `design.md` y `tasks.md` de cada spec viven en la rama de su dueño: `01-motor-datos` en `backend`, `02-dashboard` en `frontend`.
 - Mientras el backend no responda, el frontend usa los ejemplos de este contrato como mocks marcados como tales. Ningún mock llega a la entrega.
 - Integración: merge de la rama a `main` solo si funciona (`GET /health` para backend, `vite build` para frontend). Después, el otro lado hace `git merge main`.
+- Desarrollo: Uvicorn corre en el puerto por defecto, 8000 (el proxy de Vite apunta ahí). En producción FastAPI sirve `dashboard/dist` en la misma URL que la API.
 - Antes de empezar: `git pull`. Commits pequeños y con mensaje claro.
