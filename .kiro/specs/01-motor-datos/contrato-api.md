@@ -1,6 +1,6 @@
 # Contrato API (motor de datos a dashboard)
 
-Llaves en snake_case y en español. Coordenadas ya normalizadas por `playDirection`. Tiempos en segundos (10 Hz). El dashboard llama sin diagonal inicial: `fetch('api/filtros')`. Los errores usan el formato de FastAPI: 404 `{"detail": "Jugada no encontrada"}`, 422 para parámetros inválidos.
+Llaves en snake_case y en español. Coordenadas ya normalizadas por `playDirection`. Tiempos en segundos (10 Hz). El dashboard llama sin diagonal inicial: `fetch('api/filtros')`. Los errores usan el formato de FastAPI: 404 `{"detail": "Jugada no encontrada"}`, 422 para parámetros inválidos (incluye equipo, semana o distancia inexistentes) y 503 `{"detail": "Precalculando datos"}` con encabezado `Retry-After` solo en `/api/analisis` mientras el backend termina de procesar el tracking (el frontend muestra "cargando" y reintenta). En los frames, el balón trae `equipo = "football"`.
 
 ## GET /api/filtros
 ```json
