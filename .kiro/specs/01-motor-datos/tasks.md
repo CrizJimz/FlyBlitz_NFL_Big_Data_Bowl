@@ -17,24 +17,24 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
 
 ## Tasks
 
-- [ ] 1. Esqueleto de `backend/motor/` y carga de tablas base
-  - [ ] 1.1 Crear el paquete `backend/motor/` y `config.py`
+- [x] 1. Esqueleto de `backend/motor/` y carga de tablas base
+  - [x] 1.1 Crear el paquete `backend/motor/` y `config.py`
     - Crear `backend/motor/__init__.py` y `config.py` con `RAIZ`, `DIR_DATOS`, `FPS`, `LARGO`, `ANCHO`, `RANGOS_DISTANCIA`, `RESULTADOS_PASE`, `PASE_CON_BALON`, `SNAP` y `PASE` según el diseño.
     - Crear `backend/tests/__init__.py` vacío.
     - _Requirements: 1.1, 10.2, 10.3, 11.3_
 
-  - [ ] 1.2 Implementar `carga.py` con las tablas base y el tracking de un partido
+  - [x] 1.2 Implementar `carga.py` con las tablas base y el tracking de un partido
     - `ArchivoFaltante`, `leer_tablas_base`, `listar_partidos` y `leer_tracking_partido` con `usecols` y dtypes reducidos; solo lectura.
     - Verificar con `df.columns` y `unique()` las columnas usadas (`passResult`, `pff_role`, `playDirection`, `event`) antes de fijarlas.
     - Contrastar los `gameId` de los `tracking_*.csv` con `games.gameId` (122 partidos).
     - _Requirements: 1.1, 1.2, 1.4, 1.5, 1.6, 1.7, 9.1, 9.2_
 
-  - [ ]* 1.3 Escribir pruebas de ejemplo de la carga
+  - [x]* 1.3 Escribir pruebas de ejemplo de la carga
     - `leer_tablas_base` sobre datos reales devuelve 8,557 jugadas; `ArchivoFaltante` nombra el archivo si se apunta a una ruta inexistente; el tracking de un partido trae solo las columnas pedidas.
     - _Requirements: 1.1, 1.2, 1.7_
 
-- [ ] 2. Normalización por `playDirection`
-  - [ ] 2.1 Implementar `normalizacion.py`
+- [x] 2. Normalización por `playDirection`
+  - [x] 2.1 Implementar `normalizacion.py`
     - `normalizar_tracking(df)` vectorizada con la máscara `playDirection == "left"`: `x=120-x`, `y=53.3-y`, `o`/`dir` con `(ang+180) % 360`; "right" solo aplica `% 360`.
     - Conservar filas fuera del campo y los nulos de `o`/`dir` del balón. Excluir las filas sin `playDirection` y devolverlas en un segundo valor para registrarlas con `logging` (sin asumir dirección). No mutar la entrada.
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7_
@@ -51,25 +51,25 @@ Reglas que aplican a TODAS las tareas de código (de `rules.md`, `dominio-nfl.md
     - **Property 3: Involución de la normalización**
     - **Validates: Requirements 2.8**
 
-- [ ] 3. Router `/api` con `GET /api/filtros` y `/health` intacto
-  - [ ] 3.1 Implementar `filtros.py` con `construir_catalogo`
+- [x] 3. Router `/api` con `GET /api/filtros` y `/health` intacto
+  - [x] 3.1 Implementar `filtros.py` con `construir_catalogo`
     - Valores únicos reales de `equipos`, `semanas`, `downs`, `tipos_cobertura`, `coberturas` y `formaciones` (sin nulos) más `rangos_distancia` fijos (`larga` con `max` nulo).
     - _Requirements: 4.6, 7.1, 7.2, 9.2_
 
-  - [ ] 3.2 Crear `esquemas.py` con los modelos de `/api/filtros`
+  - [x] 3.2 Crear `esquemas.py` con los modelos de `/api/filtros`
     - `RangoDistancia` y `FiltrosRespuesta` con las llaves exactas de `contrato-api.md`, y la función que convierte `NaN` a `None` antes de serializar.
     - _Requirements: 7.1, 7.2, 7.9_
 
-  - [ ] 3.3 Crear `EstadoMotor`, `api.py` y el `lifespan` en `main.py`
+  - [x] 3.3 Crear `EstadoMotor`, `api.py` y el `lifespan` en `main.py`
     - `EstadoMotor` mínimo en `precalculo.py` (`estado`, `mensaje`, `tablas`, `catalogo`). El `lifespan` carga las tablas base de forma síncrona y deja el estado en `app.state.motor`; si falta un archivo, registra su nombre con `logging.error` y pasa a `error`.
     - `APIRouter(prefix="/api")` con `GET /api/filtros` y dependencia `obtener_estado` (503 si el estado es `error`). `GET /health` sigue respondiendo `{"status": "ok"}`. Conservar `cargar_env()` al inicio de `main.py` tal como indican las reglas.
     - _Requirements: 1.1, 1.7, 7.1, 7.9, 11.1, 11.2, 11.4_
 
-  - [ ]* 3.4 Escribir pruebas de ejemplo de `/health` y `/api/filtros`
+  - [x]* 3.4 Escribir pruebas de ejemplo de `/health` y `/api/filtros`
     - `/health` responde `{"status": "ok"}` también con `estado = error` (ruta inexistente); `/api/filtros` trae las siete llaves y valores iguales a `unique()` de los CSV; todas las rutas de datos cuelgan de `/api`.
     - _Requirements: 1.7, 7.1, 7.2, 7.9, 11.2_
 
-- [ ] 4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend
+- [-] 4. Checkpoint - GET /health y GET /api/filtros responden: merge de backend a main y avisar al compañero de frontend
   - Ejecutar las pruebas (`pytest backend/tests`) y confirmar que `GET /health` y `GET /api/filtros` responden con datos reales.
   - Preguntar al usuario si hay dudas. No ejecutar git (merge, push) sin confirmación explícita; si el usuario confirma, hacer el merge de `backend` a `main` y avisar al compañero de frontend.
 
