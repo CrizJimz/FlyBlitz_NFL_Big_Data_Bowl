@@ -18,14 +18,15 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
 
 - [ ] 3. Capa de API
   - [ ] 3.1 Escribir `api/tipos.ts` copiando las llaves de `contrato-api.md`.
-  - [ ] 3.2 Escribir `api/cliente.ts` con `getFiltros`, `getAnalisis`, `getJugada`, `ErrorApi` y `usarMocks`. Rutas sin diagonal inicial; parámetros armados solo con los filtros que tienen valor; lectura de `detail` en 404 y 422.
-  - [ ] 3.3 Escribir `api/usePeticion.ts`: estados cargando, error y listo; descartar respuestas viejas; conservar el último resultado válido; `reintentar()`.
-  - _Requisitos: 1.6, 4.5, 4.8, 5.1, 5.2, 5.8, 6.2_
+  - [ ] 3.2 Escribir `api/cliente.ts` con `getFiltros`, `getAnalisis`, `getJugada`, `ErrorApi` y `usarMocks`. Rutas sin diagonal inicial; parámetros armados solo con los filtros que tienen valor; lectura de `detail` en 404, 422 y 503; en el 503 de `api/analisis`, leer `Retry-After` en segundos (5 s si falta o no es un número).
+  - [ ] 3.3 Escribir `api/usePeticion.ts`: estados cargando (con mensaje y segundos para el reintento), error y listo; descartar respuestas viejas; conservar el último resultado válido; `reintentar()`; ante un 503, quedarse en cargando y reintentar con `setTimeout`, que se cancela al cambiar los filtros o desmontar.
+  - _Requisitos: 1.6, 4.5, 4.8, 5.1, 5.2, 5.8, 6.2, 6.5-6.8_
 
 - [ ] 4. Mocks
   - Escribir `api/mocks/filtros.mock.ts`, `analisis.mock.ts` y `jugada.mock.ts`, con la forma exacta del contrato y el comentario `// MOCK: datos de ejemplo de forma, no son hallazgos.`
   - Cumplir en los valores: `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`, `exitosas ≤ n` y tasas entre 0 y 1.
-  - Jugada de unos 30 cuadros (11 contra 11 más el balón) con un evento repetido, más una variante sin snap y con `receptor_objetivo: null`.
+  - Jugada de unos 30 cuadros (11 contra 11 más el balón, con `equipo = "football"` y `lado = "balon"`) con un evento repetido, más una variante sin snap y con `receptor_objetivo: null`.
+  - `api/analisis` mock: un 503 "Precalculando datos" con reintento en 3 s en la primera llamada de la sesión, y después la respuesta normal.
   - Verificar: `npm run build` y luego buscar "mock" y "DATOS DE EJEMPLO" en `dashboard/dist` da cero resultados.
   - _Requisitos: 5.3, 5.5, 5.7_
 
@@ -59,7 +60,7 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
   - `npm run build` sin errores.
   - Buscar `'/api` y `localhost` en `dashboard/src`: cero resultados.
   - Buscar "mock" en `dashboard/dist`: cero resultados.
-  - Recorrido manual con `npm run dev:mock`: las 5 secciones, carga, error, sin snap, receptor `null` y n = 0.
+  - Recorrido manual con `npm run dev:mock`: las 5 secciones, carga, 503 con reintento, error, sin snap, receptor `null` y n = 0.
   - Avisar al usuario antes de hacer merge a `main`.
   - _Requisitos: 1.3, 1.7, 5.5, 12.1, 12.3_
 
@@ -82,6 +83,8 @@ Basadas en `requirements.md` y `design.md`. Rama `frontend`; solo se toca `dashb
 - [ ] 13. Integración con la API real
   - Con el backend corriendo y `npm run dev`: comparar `n_jugadas` sin filtros con 8,557 y la suma del bolsillo con 7,541 + 992 + 24.
   - Abrir 2021091200-4367 (sin snap) y confirmar "Sin snap registrado".
+  - Arrancar el backend en frío y confirmar que la pantalla muestra "Precalculando datos", reintenta sola y carga sin recargar la página.
+  - Probar un filtro inexistente (por ejemplo, editando el hash o la petición) y confirmar que el 422 se muestra junto a los filtros.
   - Validar a ojo la orientación `o` y `dir` en una jugada real.
   - Quitar la etiqueta "Próximamente" de las secciones terminadas.
   - `npm run build` y merge de `frontend` a `main` solo si pasa.

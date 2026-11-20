@@ -142,7 +142,9 @@ Si el contrato cambia, este archivo es el único lugar donde se actualizan los t
 ### 4.2 Cliente (`api/cliente.ts`)
 
 ```ts
-export class ErrorApi extends Error { constructor(public estado: number, public detalle: string) { super(detalle) } }
+export class ErrorApi extends Error {
+  constructor(public estado: number, public detalle: string, public reintentarEnS?: number) { super(detalle) }
+}
 
 export const usarMocks = import.meta.env.DEV && import.meta.env.MODE === 'mock'
 
@@ -155,6 +157,7 @@ export async function getJugada(gameId: number, playId: number): Promise<Respues
 - `params` se arma con `URLSearchParams` y solo incluye los filtros distintos de `null`.
 - Respuesta no OK: se lee `detail` del JSON (formato FastAPI) y se lanza `ErrorApi(estado, detalle)`. En un error 422 de validación, `detail` es una lista y se resume en un texto. Si el JSON no se puede leer, el mensaje es "Error del servidor (estado)".
 - Error de red: `ErrorApi(0, 'No se pudo conectar con la API')`.
+- **503 en `api/analisis` (precálculo):** el cliente lanza `ErrorApi(503, detail)` con un campo extra `reintentarEnS`. Ese campo se lee de `Retry-After`: si el valor es un entero positivo se usa, y si falta o no es un número se usa 5 s. El contrato solo promete segundos, así que el formato de fecha HTTP también cae en 5 s. Como la API está en el mismo origen (o pasa por el proxy en desarrollo), el navegador deja leer el encabezado sin CORS. `api/filtros` y `api/jugada` no tratan el 503 de forma especial: si llegara a pasar, se muestra como un error normal.
 - **Nunca se cae en silencio al mock.** Si `usarMocks` es falso y la API falla, se muestra el error con un botón "Reintentar".
 
 ### 4.3 Mocks fuera de la entrega
@@ -163,17 +166,20 @@ export async function getJugada(gameId: number, playId: number): Promise<Respues
 - Activación en desarrollo: `npm run dev:mock` (`vite --mode mock`). Con API real: `npm run dev`. No hace falta ningún archivo `.env`, lo cual es importante porque `.gitignore` ignora `.env.*` y no se puede versionar una plantilla. `npm run build` usa el modo `production`, así que `usarMocks` siempre es `false` en la entrega.
 - `dev:mock` es un script nuevo en `package.json`, no una dependencia. Las versiones no cambian.
 - Contenido: forma exacta del contrato y valores de ejemplo coherentes entre sí. Se cumplen `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`, `exitosas ≤ n` y tasas entre 0 y 1. Cada archivo empieza con `// MOCK: datos de ejemplo de forma, no son hallazgos.`
+- Para probar el precálculo, el mock de `api/analisis` responde una vez 503 (`detail` "Precalculando datos" y reintento en 3 s) la primera vez que se llama en la sesión, y después responde normal. Esto solo pasa en `npm run dev:mock`.
 - El mock de jugada es un caso sintético corto (unos 30 cuadros, 11 contra 11 más el balón) e incluye un evento repetido. Se puede cambiar a un segundo mock sin snap y con `receptor_objetivo: null` para probar esos estados.
 
 ### 4.4 Hook `usePeticion`
 
 ```ts
 type EstadoPeticion<T> =
-  | { tipo: 'cargando' } | { tipo: 'error'; error: ErrorApi } | { tipo: 'listo'; datos: T }
+  | { tipo: 'cargando'; mensaje?: string; reintentoEnS?: number }
+  | { tipo: 'error'; error: ErrorApi } | { tipo: 'listo'; datos: T }
 function usePeticion<T>(fn: () => Promise<T>, deps: unknown[]): EstadoPeticion<T> & { reintentar(): void }
 ```
 
 - Cancela respuestas viejas: si cambian los filtros mientras una petición está en curso, se ignora la respuesta anterior (bandera `vigente` en el efecto).
+- **Reintento por 503:** si el error es `ErrorApi` con estado 503, el hook no pasa a `error`. Se queda en `{ tipo: 'cargando', mensaje: detalle }` y programa un `setTimeout(reintentarEnS * 1000)` que vuelve a llamar a `fn`. No hay límite de intentos, porque el backend termina el precálculo en algún momento, y el mensaje muestra cuánto falta para el siguiente intento. El `setTimeout` se limpia en la función de limpieza del efecto, así que al cambiar los filtros o desmontar la pantalla se cancela el reintento pendiente.
 - Error 422 en `api/analisis`: la pantalla conserva los últimos `datos` válidos y muestra el `detalle` junto a los filtros (requisito 4.8). Por eso el hook guarda `ultimoListo` aparte del estado actual.
 
 ## 5. App, navegación y filtros
@@ -222,7 +228,7 @@ function usePeticion<T>(fn: () => Promise<T>, deps: unknown[]): EstadoPeticion<T
 ```
 
 - **Campo (`Campo.tsx`):** `viewBox="-5 -5 130 63.3"`, con 5 yd de margen en cada lado para cubrir x de -3.55 a 121.15 y y de -4.53 a 57.72. El eje y se invierte (`y_svg = 53.3 - y`) para que y = 0 quede abajo, igual que la figura del README. Solo es un cambio de dibujo, no una normalización de datos. Zonas de anotación de 0 a 10 y de 110 a 120, líneas cada 5 yd y números cada 10. Va memorizado con `React.memo` porque no cambia.
-- **Jugadores (`Jugadores.tsx`):** la ofensiva es un círculo `acento` con el dorsal, la defensiva un triángulo `defensa` con el dorsal y el balón una elipse pequeña `balon`. La orientación es una línea corta desde el centro con ángulo `((o % 360) + 360) % 360`. La conversión a SVG sigue la convención NGS (0° apunta al eje y positivo y el ángulo crece en sentido horario): `dx = sin(θ)` y `dy = cos(θ)` en coordenadas del campo, y luego se aplica la inversión de y. Se valida visualmente con una jugada real cuando haya API: los jugadores deben "mirar" hacia donde corren. El receptor objetivo lleva un anillo blanco y su nombre. Al pasar el cursor aparece un `<title>` con nombre, dorsal, rol y `s`.
+- **Jugadores (`Jugadores.tsx`):** la ofensiva es un círculo `acento` con el dorsal, la defensiva un triángulo `defensa` con el dorsal y el balón una elipse pequeña `balon`. El balón se identifica por `lado = "balon"` (trae `equipo = "football"`). La orientación es una línea corta desde el centro con ángulo `((o % 360) + 360) % 360`. La conversión a SVG sigue la convención NGS (0° apunta al eje y positivo y el ángulo crece en sentido horario): `dx = sin(θ)` y `dy = cos(θ)` en coordenadas del campo, y luego se aplica la inversión de y. Se valida visualmente con una jugada real cuando haya API: los jugadores deben "mirar" hacia donde corren. El receptor objetivo lleva un anillo blanco y su nombre. Al pasar el cursor aparece un `<title>` con nombre, dorsal, rol y `s`.
 - **Reproductor (`useReproductor.ts`):** guarda el índice del cuadro y si está reproduciendo, y avanza con `setInterval(1000 / frames_por_segundo)`. Botones: inicio, -1, reproducir/pausa, +1 y fin. Hay un `<input type="range">` de 1 a `frames.length`. Las teclas ←/→ mueven un cuadro y la barra espaciadora reproduce o pausa. Al llegar al final se pausa.
 - **Eventos (`utilidades/eventos.ts`):**
   - `primerCuadroPorEvento(eventos)` agrupa por nombre y se queda con el `frame_id` mínimo.
@@ -262,8 +268,9 @@ function usePeticion<T>(fn: () => Promise<T>, deps: unknown[]): EstadoPeticion<T
 |---|---|---|
 | Cargando | cualquier petición | skeleton del panel con el texto "Cargando…" |
 | Red caída o 5xx | api/filtros, api/analisis, api/jugada | `ErrorPanel` con el mensaje y "Reintentar" |
+| 503 (precálculo) | api/analisis | estado de carga con "Precalculando datos" y "reintento en N s"; los filtros y el visor siguen funcionando |
 | 404 | api/jugada | `detail` de la API |
-| 422 | api/analisis | `detail` junto a los filtros; se conservan los últimos datos |
+| 422 | api/analisis | `detail` junto a los filtros (incluye equipo, semana o distancia inexistentes); se conservan los últimos datos |
 | n = 0 | cualquier métrica | "Sin jugadas para estos filtros" |
 | n < 20 | celdas y tarjetas | etiqueta "muestra pequeña" |
 | Modo_Mock | global | chip naranja "DATOS DE EJEMPLO" en la barra superior y en cada pantalla |

@@ -85,7 +85,7 @@ Cada requisito indica su fase.
 5. WHEN el Coach cambia un filtro, THE Capa_API SHALL pedir `GET api/analisis` solo con los parámetros que tienen valor (`ofensiva`, `defensiva`, `semana`, `down`, `distancia`).
 6. THE Dashboard SHALL mostrar como chips los filtros de `filtros_aplicados` que tienen valor, usando la respuesta de la API y no el estado local.
 7. THE Dashboard SHALL ofrecer un botón "Limpiar filtros" que devuelve todos los filtros a "Todos".
-8. IF la API responde 422, THEN THE Dashboard SHALL mostrar el `detail` del error junto a los filtros y conservar los últimos datos válidos.
+8. IF la API responde 422 (incluye equipo, semana o distancia inexistentes), THEN THE Dashboard SHALL mostrar el `detail` del error junto a los filtros y conservar los últimos datos válidos.
 
 ### Requisito 5: Capa de API y mocks (Fase 1)
 
@@ -99,7 +99,7 @@ Cada requisito indica su fase.
 5. WHEN el Dashboard se construye para entrega (`npm run build`, modo production), THE Capa_API SHALL NOT incluir ni usar los Mocks.
 6. WHILE el Dashboard esté en Modo_Mock, THE Dashboard SHALL mostrar en la barra superior y en cada pantalla afectada un indicador naranja visible: "DATOS DE EJEMPLO".
 7. THE Mocks SHALL respetar las relaciones del contrato: `n_con_pase + n_sin_pase + n_sin_snap = n_jugadas`, `tasa` y `success_rate` entre 0 y 1, y `exitosas ≤ n`.
-8. IF la API no responde o responde con un error distinto de 404 o 422, THEN THE Dashboard SHALL mostrar un mensaje de error con opción de reintentar, sin pasar en silencio al Mock.
+8. IF la API no responde o responde con un error distinto de 404, 422 o 503, THEN THE Dashboard SHALL mostrar un mensaje de error con opción de reintentar, sin pasar en silencio al Mock.
 
 ### Requisito 6: Estados de carga, error y vacío (Fase 1)
 
@@ -110,6 +110,10 @@ Cada requisito indica su fase.
 2. IF la API responde 404, THEN THE Dashboard SHALL mostrar el `detail` de la respuesta (por ejemplo "Jugada no encontrada").
 3. WHEN una métrica llega con `n = 0`, THE Dashboard SHALL mostrar "Sin jugadas para estos filtros" en lugar de 0% o una barra vacía.
 4. WHEN una métrica se basa en pocas jugadas (n menor que 20), THE Dashboard SHALL marcarla como "muestra pequeña".
+5. IF `api/analisis` responde 503, THEN THE Dashboard SHALL mostrar el estado de carga con el `detail` de la respuesta (por ejemplo "Precalculando datos") en lugar de un error.
+6. WHEN `api/analisis` responde 503, THE Capa_API SHALL reintentar la misma petición después de los segundos que indica el encabezado `Retry-After`, o después de 5 s si el encabezado falta o no es un número.
+7. WHEN el Coach cambia los filtros o sale de la pantalla mientras hay un reintento pendiente, THE Capa_API SHALL cancelar ese reintento.
+8. THE Dashboard SHALL mostrar los Filtros y el Visor_2D con normalidad mientras `api/analisis` responde 503, porque `api/filtros` y `api/jugada` responden desde el arranque.
 
 ### Requisito 7: Pantalla Success Rate (Fase 1)
 
@@ -134,7 +138,7 @@ Cada requisito indica su fase.
 3. THE Visor_2D SHALL usar `x` y `y` tal como los entrega la API, sin volver a normalizar por dirección de juego.
 4. THE Visor_2D SHALL distinguir por color y forma a la ofensiva (círculo con dorsal), la defensiva (otra forma con dorsal) y el balón, según `lado` ("ofensiva", "defensiva", "balon").
 5. WHERE un jugador tenga `o` o `dir`, THE Visor_2D SHALL dibujar su orientación aplicando módulo 360 al ángulo.
-6. THE Visor_2D SHALL tratar los campos `null` del balón (`nfl_id`, `nombre`, `dorsal`, `rol`, `o`, `dir`) sin errores.
+6. THE Visor_2D SHALL tratar los campos `null` del balón (`nfl_id`, `nombre`, `dorsal`, `rol`, `o`, `dir`) sin errores. El balón trae `equipo = "football"`, y el Visor_2D lo identifica por `lado = "balon"`.
 7. THE Visor_2D SHALL ofrecer reproducir, pausar, avanzar y retroceder un cuadro y una barra de tiempo, avanzando a `frames_por_segundo` cuadros por segundo.
 8. THE Visor_2D SHALL marcar en la línea de tiempo cada evento de `eventos` en su `frame_id`, con su nombre; si un evento se repite, solo se marca su primer cuadro.
 9. IF `eventos` no trae `ball_snap` ni `autoevent_ballsnap`, THEN THE Visor_2D SHALL mostrar "Sin snap registrado" y no marcar ningún cuadro como snap.
